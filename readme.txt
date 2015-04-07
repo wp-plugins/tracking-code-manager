@@ -30,7 +30,7 @@ Putting the tracking code directly in the theme files, you risk to lose importan
 
 With Tracking Code Manager you can forget about this problem also if you will change your theme in the future.
 
-[youtube https://www.youtube.com/watch?v=shJG7Vf1nM]
+[youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
 
 == Installation ==
 
