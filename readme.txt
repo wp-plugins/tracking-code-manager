@@ -10,7 +10,7 @@ Compatible with Facebook Ads, Google Adwords and ALL kind of Saas tool.
 
 == Description ==
 
-Tracking Code manager is a plugin that give you the ability to manage ALL your tracking code and scripts in one single page.
+**Tracking Code manageris a plugin that give you the ability to manage ALL your tracking code and scripts in one single page.**
 
 It doesn’t matter the place where you want to put your code, because with Tracking Code Manager you can put it wherever you want, with no restrictions.
 
@@ -31,6 +31,11 @@ Putting the tracking code directly in the theme files, you risk to lose importan
 With Tracking Code Manager you can forget about this problem also if you will change your theme in the future.
 
 [youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
+
+= PREMIUM VERSION =
+
+If you need more advanced feature you can also try our PREMIUM version available in the link below:
+[http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/)
 
 == Installation ==
 
