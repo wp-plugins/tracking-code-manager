@@ -16,7 +16,7 @@ It doesn’t matter the place where you want to put your code, because with Trac
 
 Let’s say you are using on your website Google Analytics, Facebook Custom Audiences, Facebook Retargeting, Google Remarketing, Zendesk, a Live Chat tool, eye tracking analytics, popups, affiliate tracking pixels and so on...
 
-For every single service you use, you’ll have to put a script or a tracking pixel in the <head> or <body> tag of your WordPress site OR in some of its pages.
+For every single service you use, you’ll have to put a script or a tracking pixel in the &lt;head&gt; or &lt;body&gt; tag of your WordPress site OR in some of its pages.
 
 Tracking Code Manager plugin allows you to gather EVERY code and snippet displaying them exactly where you want, whether in the whole site or in specific pages and posts.
 
@@ -42,9 +42,15 @@ If you need more advanced feature you can also try our PREMIUM version available
 1. Download
 2. Upload to your /wp-contents/plugins/ directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. Put your tracking code, script or iframe in the plugin by going to the Settings => Tracking Code Manager menu
+4. Put your tracking code, script or iframe in the plugin by going to the Settings =&gt; Tracking Code Manager menu
+
+You can also click on this link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/) to see a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
 == Frequently Asked Questions ==
+
+= Do you have a video that show me the plugin working? =
+
+Sure! Click on the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/) for a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
 = Will this plugin slow my website? =
 
