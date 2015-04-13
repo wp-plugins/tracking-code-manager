@@ -67,6 +67,34 @@ class TCM_Utils {
         return $result;
     }
 
+    function is($name, $compare, $default='', $ignoreCase=TRUE) {
+        $what=$this->qs($name, $default);
+        $result=FALSE;
+        if(is_string($compare)) {
+            $compare=explode(',', $compare);
+        }
+        if($ignoreCase){
+            $what=strtolower($what);
+        }
+
+        foreach($compare as $v) {
+            if($ignoreCase){
+                $v=strtolower($v);
+            }
+            if($what==$v) {
+                $result=TRUE;
+                break;
+            }
+        }
+        return $result;
+    }
+
+    public function twitter($name) {
+        ?>
+        <a href="https://twitter.com/<?php echo $name?>" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @<?php echo $name?></a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    <?php
+    }
 
     //per ottenere un campo dal $_GET oppure dal $_POST
     function qs($name, $default = '') {

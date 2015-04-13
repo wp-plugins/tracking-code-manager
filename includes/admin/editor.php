@@ -169,7 +169,7 @@ function tcm_ui_editor() {
 
     $args=array('id'=>'tcm-except-div', 'name'=>'tcm-except-div');
     $tcm->Form->divStarts($args);
-    $tcm->Form->p('Except when?');
+    $tcm->Form->p('Exclude when?');
     tcm_formOptions('except', $snippet);
     $tcm->Form->divEnds();
 
@@ -202,10 +202,14 @@ function tcm_notice_pro_features() {
         <?php
 
         $options = array('public' => TRUE, '_builtin' => FALSE);
-        $q = get_post_types($options, 'names');
-        $q = array_merge($q, array('post', 'page'));
-        sort($q);
-        $q=implode(', ', $q);
+        $q=get_post_types($options, 'names');
+        if(is_array($q) && count($q)>0) {
+            sort($q);
+            $q=implode(', ', $q);
+            $q='(<b>'.$q.'</b>)';
+        } else {
+            $q='';
+        }
 
         while($tcm->Lang->H('Notice.ProFeature'.$i)) { ?>
             <div style="clear:both; margin-top: 2px;"></div>

@@ -74,6 +74,9 @@
 .tcm-checkbox {
     margin:0px;
 }
+.tcm-checkbox:disabled {
+    background-color: #f8f8f8;
+}
 .tcm-select {
 
 }

@@ -6,11 +6,11 @@ Description: A plugin to manage ALL your tracking code and conversion pixels, si
 Author: IntellyWP
 Author URI: http://intellywp.com/
 Email: aleste@intellywp.com
-Version: 1.4
+Version: 1.5
 */
 define('TCM_PLUGIN_FILE',__FILE__);
 define('TCM_PLUGIN_NAME', 'tracking-code-manager');
-define('TCM_PLUGIN_VERSION', '1.4');
+define('TCM_PLUGIN_VERSION', '1.5');
 define('TCM_PLUGIN_AUTHOR', 'IntellyWP');
 define('TCM_PLUGIN_ROOT', dirname(__FILE__).'/');
 define('TCM_PLUGIN_IMAGES', plugins_url( 'assets/images/', __FILE__ ));
@@ -122,8 +122,8 @@ class TCM_Tabs {
 
         wp_enqueue_style('tcm-css', plugins_url('assets/css/style.css', __FILE__ ));
         wp_enqueue_style('tcm-select2-css', plugins_url('assets/deps/select2-3.5.2/select2.css', __FILE__ ));
-        //wp_enqueue_style('tcm-select2-css2', plugins_url('deps/select2/css/select2.custom.css', __FILE__ ));
         wp_enqueue_script('tcm-select2-js', plugins_url('assets/deps/select2-3.5.2/select2.min.js', __FILE__ ));
+        wp_enqueue_script('tcm-starrr-js', plugins_url('assets/deps/starrr/starrr.js', __FILE__ ));
 
         wp_register_script('tcm-autocomplete', plugins_url('assets/js/tcm-autocomplete.js', __FILE__ ), array('jquery', 'jquery-ui-autocomplete'), '1.0', FALSE);
         wp_localize_script('tcm-autocomplete', 'TCMAutocomplete', array('url' => admin_url('admin-ajax.php')
@@ -199,13 +199,40 @@ class TCM_Tabs {
         global $tcm;
         $tab=$tcm->Check->of('tab', TCM_TAB_MANAGER);
 
-        echo '<h2 class="nav-tab-wrapper">';
-        foreach ($this->tabs as $k=>$v) {
-            $active = ($tab==$k ? 'nav-tab-active' : '');
-            echo '<a class="nav-tab '.$active.'" href="?page='.TCM_PLUGIN_NAME.'&tab='.$k.'">'.$v.'</a>';
-        }
-        echo '</h2>';
-    }
-};
+        ?>
+        <h2 class="nav-tab-wrapper" style="float:left; width:97%;">
+            <?php
+            foreach ($this->tabs as $k=>$v) {
+                $active = ($tab==$k ? 'nav-tab-active' : '');
+                ?>
+                <a style="float:left" class="nav-tab <?php echo $active?>" href="?page=<?php echo TCM_PLUGIN_NAME?>&tab=<?php echo $k?>"><?php echo $v?></a>
+                <?php
+            }
+            ?>
+            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+            <style>
+                .starrr {display:inline-block}
+                .starrr i{font-size:16px;padding:0 1px;cursor:pointer;color:#2ea2cc;}
+            </style>
+            <div style="float:right; display:none;" id="rate-box">
+                <span style="font-weight:700; font-size:13px; color:#555;"><?php $tcm->Lang->P('Rate us')?></span>
+                <div id="tcm-rate" class="starrr" data-connected-input="tcm-rate-rank"></div>
+                <input type="hidden" id="tcm-rate-rank" name="tcm-rate-rank" value="5" />
+
+            </div>
+            <script>
+                jQuery(function() {
+                    jQuery(".starrr").starrr();
+                    jQuery('#tcm-rate').on('starrr:change', function(e, value){
+                        var url='https://wordpress.org/support/view/plugin-reviews/tracking-code-manager?rate=5#postform';
+                        window.open(url);
+                    });
+                    jQuery('#rate-box').show();
+                });
+            </script>
+        </h2>
+        <div style="clear:both;"></div>
+    <?php }
+}
 
 $tcmTabs=new TCM_Tabs();

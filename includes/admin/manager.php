@@ -45,13 +45,17 @@ function tcm_ui_manager() {
     global $tcm;
 
     $id=intval($tcm->Utils->qs('id', 0));
-    if ($tcm->Utils->qs('action')=='delete' && $id>0 && wp_verify_nonce($tcm->Utils->qs('tcm_nonce'), 'tcm_delete')) {
-        $snippet=$tcm->Manager->get($id);
+    if ($tcm->Utils->is('action', 'delete') && $id>0 && wp_verify_nonce($tcm->Utils->qs('tcm_nonce'), 'tcm_delete')) {
+        $snippet = $tcm->Manager->get($id);
         if ($tcm->Manager->remove($id)) {
             $tcm->Options->pushSuccessMessage('CodeDeleteNotice', $id, $snippet['name']);
         }
-    } else if($id!='') {
+    } elseif($id>0) {
         $snippet=$tcm->Manager->get($id);
+        if($tcm->Utils->is('action', 'toggle') && $id>0 && wp_verify_nonce($tcm->Utils->qs('tcm_nonce'), 'tcm_toggle')) {
+            $snippet['active']=($snippet['active']==0 ? 1 : 0);
+            $tcm->Manager->put($snippet['id'], $snippet);
+        }
         $tcm->Options->pushSuccessMessage('CodeUpdateNotice', $id, $snippet['name']);
     }
 
@@ -105,9 +109,23 @@ function tcm_ui_manager() {
                 <tr>
                     <td><?php echo $snippet['name']?></td>
                     <td><?php $tcm->Lang->P('Editor.position.'.$snippet['position'])?></td>
+                    <td style="text-align:center;">
+                        <?php
+                        $color='red';
+                        $text='No';
+                        $question='QuestionActiveOn';
+                        if($snippet['active']==1) {
+                            $color='green';
+                            $text='Yes';
+                            $question='QuestionActiveOff';
+                        }
+                        $text='<span style="font-weight:bold; color:'.$color.'">'.$tcm->Lang->L($text).'</span>';
+                        ?>
+                        <a onclick="return confirm('<?php echo $tcm->Lang->L($question)?>');" href="<?php echo TCM_TAB_MANAGER_URI?>&tcm_nonce=<?php echo esc_attr(wp_create_nonce('tcm_toggle')); ?>&action=toggle&id=<?php echo $snippet['id'] ?>">
+                            <?php echo $text?>
+                        </a>
+                    </td>
                     <?php
-                    tcm_ui_manager_column($snippet['active']);
-
                     $hide=!$snippet['active'];
                     tcm_ui_manager_column($snippet['includeEverywhereActive'], NULL, $hide);
                     ?>

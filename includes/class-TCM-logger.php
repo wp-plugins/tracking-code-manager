@@ -23,18 +23,18 @@ class TCM_Logger {
         array_pop($this->context);
     }
 
-    public function fatal($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
-        $what=$this->write('[FATAL]', $message, $v1, $v2, $v3, $v4, $v5);
+    public function fatal($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL, $v6=NULL) {
+        $what=$this->write('[FATAL]', $message, $v1, $v2, $v3, $v4, $v5, $v6);
         die($what);
     }
-    public function debug($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
-        $this->write('[DEBUG]', $message, $v1, $v2, $v3, $v4, $v5);
+    public function debug($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL, $v6=NULL) {
+        $this->write('[DEBUG]', $message, $v1, $v2, $v3, $v4, $v5, $v6);
     }
-    public function info($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
-        $this->write('[INFO] ', $message, $v1, $v2, $v3, $v4, $v5);
+    public function info($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL, $v6=NULL) {
+        $this->write('[INFO] ', $message, $v1, $v2, $v3, $v4, $v5, $v6);
     }
-    public function error($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
-        $this->write('[ERROR]', $message, $v1, $v2, $v3, $v4, $v5);
+    public function error($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL, $v6=NULL) {
+        $this->write('[ERROR]', $message, $v1, $v2, $v3, $v4, $v5, $v6);
     }
     private function dump($v) {
         if($v!=NULL) {
@@ -44,7 +44,7 @@ class TCM_Logger {
         }
         return $v;
     }
-    private function write($verbosity, $message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
+    private function write($verbosity, $message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL, $v6=NULL) {
         global $tcm;
 
         $text=sprintf($message
@@ -52,7 +52,8 @@ class TCM_Logger {
             , $this->dump($v2)
             , $this->dump($v3)
             , $this->dump($v4)
-            , $this->dump($v5));
+            , $this->dump($v5)
+            , $this->dump($v6));
         $message=date("d/m/Y H:i:s")." ".$verbosity." ";
         if(count($this->context)>0) {
             $message.='{'.$this->context[count($this->context)-1].'} ';

@@ -111,6 +111,8 @@ class TCM_Tracking {
         $result['iwpm_plugin_name']=TCM_PLUGIN_NAME;
         $result['iwpm_plugin_version']=TCM_PLUGIN_VERSION;
         $result['iwpm_plugin_data']=$data;
+        $result['iwpm_plugin_install_date']=$tcm->Options->getPluginInstallDate();
+        $result['iwpm_plugin_update_date']=$tcm->Options->getPluginUpdateDate();
 
         $result['iwpm_tracking_enable']=$tcm->Options->isTrackingEnable();
         $result['iwpm_logger_enable']=$tcm->Options->isLoggerEnable();

@@ -12,6 +12,7 @@ class TCM_Manager {
     public function exists($name) {
         $snippets = $this->values();
         $result = NULL;
+        $name=strtoupper($name);
         if (isset($snippets[$name])) {
             $result=$snippets[$name];
         }
@@ -153,7 +154,7 @@ class TCM_Manager {
             $what=$prefix.'PostsOfType_'.$postType;
             if(!$include && $snippet[$what.'_Active'] && $tcm->Utils->inArray($postId, $snippet[$what])) {
                 $tcm->Logger->debug('MATCH=%s SNIPPET=%s[%s] DUE TO POST=%s OF TYPE=%s IN [%s]'
-                    , $prefix, $snippet['ID'], $snippet['name'], $postId, $postType, $snippet[$what]);
+                    , $prefix, $snippet['id'], $snippet['name'], $postId, $postType, $snippet[$what]);
                 $include=TRUE;
             }
         }
@@ -213,13 +214,13 @@ class TCM_Manager {
                 continue;
             }
             if($tcm->Options->hasSnippetWritten($v)) {
-                $tcm->Logger->debug('SKIPPED SNIPPET=%s[%s] DUE TO ALREADY WRITTEN', $v['ID'], $v['name']);
+                $tcm->Logger->debug('SKIPPED SNIPPET=%s[%s] DUE TO ALREADY WRITTEN', $v['id'], $v['name']);
                 continue;
             }
 
             $match=FALSE;
             if(!$match && $v['includeEverywhereActive']) {
-                $tcm->Logger->debug('INCLUDED SNIPPET=%s[%s] DUE TO EVERYWHERE', $v['ID'], $v['name']);
+                $tcm->Logger->debug('INCLUDED SNIPPET=%s[%s] DUE TO EVERYWHERE', $v['id'], $v['name']);
                 $match=TRUE;
             }
             if(!$match && $postId>0 && $this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'include', $v)) {

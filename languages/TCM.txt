@@ -47,10 +47,10 @@ Editor.includeEverywhereActive=Include in the whole website (pages, posts and ar
 Editor.includeCategoriesActive=Include in posts with specific categories
 Editor.includeTagsActive=Include in posts with specific tags
 Editor.includePostsOfTypeActive=Include in "<b>{0}</b>"
-Editor.exceptCategoriesActive=Except in posts with specific categories
-Editor.exceptTagsActive=Except in posts with specific tags
-Editor.exceptPostsOfTypeActive=Except in "<b>{0}</b>"
-Editor.includeLastPostsActive=Include in lastest posts (specify the number posts)
+Editor.exceptCategoriesActive=Exclude in posts with specific categories
+Editor.exceptTagsActive=Exclude in posts with specific tags
+Editor.exceptPostsOfTypeActive=Exclude in "<b>{0}</b>"
+Editor.includeLastPostsActive=Include in latest posts (specify the number of posts)
 
 DeactivateSuccess=License key "{0}" successfully deactivated
 DeactivateError=Errors deactivating key. Network problem??
@@ -67,8 +67,11 @@ License.key=Insert the activation key received by email
 EmptyTrackingList=Your tracking code list is empty, please <a href="{0}">CLICK HERE</a> to create new ones.
 
 Notice.ProHeader1=Do you like this plugin?
-Notice.ProHeader2=Using the <b>PREMIUM</b> version you can also include/except tracking code:
-Notice.ProFeature1=In your custom post type (p.e. <b>{0}</b>)
-Notice.ProFeature2=In the lastest post
+Notice.ProHeader2=Using the <b>PREMIUM</b> version you can also include/exclude tracking code:
+Notice.ProFeature1=In your custom post type {0}
+Notice.ProFeature2=In the latest post
 Notice.ProFeature3=In specific categories
 Notice.ProFeature4=In specific tags
+
+QuestionActiveOn=Are you sure you want to active this code?
+QuestionActiveOff=Are you sure you want to disactive this code?

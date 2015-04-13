@@ -6,31 +6,38 @@ function tcm_ui_metabox($post) {
 
     $args=array('metabox'=>TRUE, 'field'=>'id');
     $ids=$tcm->Manager->getCodes(-1, $post, $args);
-    $snippetsIds=$tcm->Manager->keys();
+    $snippets=$tcm->Manager->values();
     ?>
     <div>
-        <?php $tcm->Lang->P('Select existing Tracking Code')?>..
+        <?php $tcm->Lang->P('Select existing Tracking Code')?>
     </div>
     <input type="hidden" name="tcm_previous_ids" value="<?php echo implode(',', $ids)?>" />
 
     <div>
         <?php
-        foreach($snippetsIds as $id) {
-            $snippet=$tcm->Manager->get($id);
-            $text=$snippet['name'];
+        $postType=$post->post_type;
+        foreach($snippets as $snippet) {
+            $id=$snippet['id'];
+            $disabled='';
             $checked='';
-            if(in_array($id, $ids)) {
-                $checked=' checked';
-                $active=FALSE;
-                if($snippet['active']) {
-                    $postType=$post->post_type;
-                    $active=$snippet['includePostsOfType_'.$postType.'_Active']>0;
+
+            if($snippet['active']==0) {
+                $disabled=' DISABLED';
+            } elseif($snippet['exceptPostsOfType_'.$postType.'_Active']>0 && in_array(-1, $snippet['exceptPostsOfType_'.$postType])) {
+                //the user have excluded all the posts of this type from code definition
+                $disabled=' DISABLED';
+            } else {
+                if(in_array($id, $ids)) {
+                    $checked=' checked';
+                    $active=($snippet['includePostsOfType_'.$postType.'_Active']>0);
+                    if(!$active) {
+                        $checked='';
+                    }
                 }
-                $text='<b style="color:'.($active ? 'green' : 'red').';">'.$text.'</b>';
             }
             ?>
-            <input type="checkbox" name="tcm_ids[]" value="<?php echo $id?>" <?php echo $checked ?> />
-            <a href="<?php echo TCM_TAB_EDITOR_URI?>&id=<?php echo $id?>" target="_blank"><?php echo $text?></a>
+            <input type="checkbox" class="tcm-checkbox" name="tcm_ids[]" value="<?php echo $id?>" <?php echo $checked ?> <?php echo $disabled ?> />
+            <a href="<?php echo TCM_TAB_EDITOR_URI?>&id=<?php echo $id?>" target="_blank"><?php echo $snippet['name']?></a>
             <br/>
         <?php } ?>
     </div>
@@ -38,14 +45,14 @@ function tcm_ui_metabox($post) {
     <br/>
     <?php if($tcm->Manager->rc()>0) { ?>
         <div>
-            <label for="tcm_name">...<?php $tcm->Lang->P('or add a name')?></label>
+            <label for="tcm_name"><?php $tcm->Lang->P('Or add a name')?></label>
             <br/>
             <input type="text" name="tcm_name" value="" style="width:100%"/>
         </div>
         <div>
             <label for="code"><?php $tcm->Lang->P('and paste HTML code here')?></label>
             <br/>
-            <textarea dir="ltr" dirname="ltr" name="tcm_code" rows="10" style="font-family:Monaco,'Courier New',Courier,monospace;font-size:12px;width:100%;color:#555;background-color: #f8f8f8;"></textarea>
+            <textarea dir="ltr" dirname="ltr" name="tcm_code" class="tcm-textarea" style="width:100%; height:175px;"></textarea>
         </div>
     <?php } else { ?>
         <span style="color:red;font-weight:bold;"><?php $tcm->Lang->P('FreeLicenseReached')?></span>
@@ -116,7 +123,11 @@ function tcm_save_meta_box_data($postId) {
                     $snippet['include'.$keyArray] = array_diff($snippet['include'.$keyArray], array($postId));
                     $snippet['include'.$keyArray] = array_unique($snippet['include'.$keyArray]);
                     $snippet['include'.$keyActive]=(count($snippet['include'.$keyArray])>0 ? 1 : 0);
+
                     //include it in post type exception
+                    if($snippet['except'.$keyActive]==0) {
+                        $snippet['except'.$keyArray]=array();
+                    }
                     $snippet['except'.$keyArray] = array_merge($snippet['except'.$keyArray], array($postId));
                     $snippet['except'.$keyArray] = array_unique($snippet['except'.$keyArray]);
                     $snippet['except'.$keyActive]=1;
@@ -131,6 +142,9 @@ function tcm_save_meta_box_data($postId) {
                 $snippet = $tcm->Manager->get($id);
                 if ($snippet) {
                     //include my id in post type includes
+                    if($snippet['include'.$keyActive]==0) {
+                        $snippet['include'.$keyArray]=array();
+                    }
                     $snippet['include'.$keyArray] = array_merge($snippet['include'.$keyArray], array($postId));
                     $snippet['include'.$keyArray] = array_unique($snippet['include'.$keyArray]);
                     $snippet['include'.$keyActive]=1;
