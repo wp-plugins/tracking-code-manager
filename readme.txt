@@ -86,6 +86,7 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 *Release Date - 13/04/2015*
 
 * Insert a non-intrusive rate-us button (top-right of the screen)
+* Fixed a bug that notify Warning: sprintf(): Too few arguments in ../plugins/tracking-code-manager/includes/class-TCM-logger.php on line 55
 * Bugfix in metabox widget
 * Some translations corrected
 * Minor bugfixes
