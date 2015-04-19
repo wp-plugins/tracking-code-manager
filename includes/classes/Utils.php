@@ -13,12 +13,14 @@ class TCM_Utils {
         $start = $length * -1; //negative
         return (substr($haystack, $start) === $needle);
     }
-    /**
-     * Created by PhpStorm.
-     * User: GIOVANNI
-     * Date: 14/03/2015
-     * Time: 15:47
-     */
+
+    function isAdminUser() {
+        if (!function_exists('wp_get_current_user')) {
+            require_once(ABSPATH . 'wp-includes/pluggable.php');
+        }
+        return (current_user_can('manage_options'));
+    }
+
     //verifica se il parametro needle è un elemento dell'array haystack
     //se il parametro needle è a sua volta un array verifica che almeno un elemento
     //sia contenuto all'interno dell'array haystack
@@ -202,7 +204,9 @@ class TCM_Utils {
 
     function redirect($location) {
         //seems that if you have installed xdebug (or some version of it) doesnt work so js added
-        wp_redirect($location);
+        if(!headers_sent()) {
+            wp_redirect($location);
+        }
         ?>
         <script> window.location.replace('<?php echo $location?>'); </script>
     <?php }

@@ -210,13 +210,17 @@ class TCM_Options {
     }
     public function writeErrorMessages($clean=TRUE) {
         global $tcm;
+        $result=FALSE;
         $array=$this->getRequest('ErrorMessages', array());
-        if(is_array($array) && count($array)>0) { ?>
+        if(is_array($array) && count($array)>0) {
+            $result=TRUE;
+            ?>
             <div class="message error"><?php echo wpautop(implode("\n", $array)); ?></div>
         <?php }
         if($clean) {
             $this->removeRequest('ErrorMessages');
         }
+        return $result;
     }
     //SuccessMessages
     public function hasSuccessMessages() {
@@ -230,17 +234,23 @@ class TCM_Options {
         $this->setRequest('SuccessMessages', $array);
     }
     public function writeSuccessMessages($clean=TRUE) {
+        $result=FALSE;
         $array=$this->getRequest('SuccessMessages', array());
-        if(is_array($array) && count($array)>0) { ?>
+        if(is_array($array) && count($array)>0) {
+            $result=TRUE;
+            ?>
             <div class="message updated"><?php echo wpautop(implode("\n", $array)); ?></div>
         <?php }
         if($clean) {
             $this->removeRequest('SuccessMessages');
         }
+        return $result;
     }
     public function writeMessages($clean=TRUE) {
-        $this->writeErrorMessages($clean);
-        $this->writeSuccessMessages($clean);
+        $result=FALSE;
+        $result=$result || $this->writeErrorMessages($clean);
+        $result=$result || $this->writeSuccessMessages($clean);
+        return $result;
     }
     public function pushMessage($success, $message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
         if($success) {

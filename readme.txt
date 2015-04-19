@@ -82,17 +82,31 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 
 == Changelog ==
 
+= 1.5.1 =
+*Release Date - 19/04/2015*
+
+* FULLY COMPATIBLE WITH WORDPRESS 4.2 RC1 :)
+* [Bugfix] in metabox widget
+* [Bugfix] in redirect function causing temporary "header already sent" error
+* [Bugfix] rate us now load from https:// its star image
+* Some translations corrected
+* Minor bugfixes
+
 = 1.5 =
 *Release Date - 13/04/2015*
 
 * Insert a non-intrusive rate-us button (top-right of the screen)
-* Fixed a bug that notify Warning: sprintf(): Too few arguments in ../plugins/tracking-code-manager/includes/class-TCM-logger.php on line 55
 * Bugfix in metabox widget
 * Some translations corrected
 * Minor bugfixes
 
 = 1.4 =
 *Release Date - 06/04/2015*
+
+* Created the FREE version following Wordpress specs. Branching the PRO version available to buy using website http://www.intellywp.com/tracking-code-manager
+
+= 1.3 =
+*Release Date - 02/04/2015*
 
 * Fixed a bug that caused the hidden of "Save" button when the license if FREE
 

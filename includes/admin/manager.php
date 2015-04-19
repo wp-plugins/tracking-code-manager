@@ -136,7 +136,7 @@ function tcm_ui_manager() {
                         </a>
                         &nbsp;|&nbsp;
                         <span class="trash">
-                            <a onclick="return confirm('<?php echo $tcm->Lang->L('Are you sure you want to delete this code?')?>');" href="<?php echo TCM_TAB_MANAGER_URI?>&tcm_nonce=<?php echo esc_attr(wp_create_nonce('tcm_delete')); ?>&action=delete&id=<?php echo $snippet['id'] ?>">
+                            <a onclick="return confirm('<?php echo $tcm->Lang->L('Question.DeleteQuestion')?>');" href="<?php echo TCM_TAB_MANAGER_URI?>&tcm_nonce=<?php echo esc_attr(wp_create_nonce('tcm_delete')); ?>&action=delete&id=<?php echo $snippet['id'] ?>">
                                 <?php echo $tcm->Lang->L('Delete')?>
                             </a>
                         </span>

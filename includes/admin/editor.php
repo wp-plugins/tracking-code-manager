@@ -1,4 +1,35 @@
 <?php
+function tcm_ui_editor_check($snippet) {
+    global $tcm;
+
+    if ($snippet['name'] == '') {
+        $tcm->Options->pushErrorMessage('Please enter a unique name');
+    } else {
+        $exist=$tcm->Manager->exists($snippet['name']);
+        if ($exist && $exist['id'] != $snippet['id']) {
+            //nonostante il tutto il nome deve essee univoco
+            $tcm->Options->pushErrorMessage('You have entered a name that already exists. IDs are NOT case-sensitive');
+        }
+    }
+    if ($snippet['code'] == '') {
+        $tcm->Options->pushErrorMessage('Paste your HTML Tracking Code into the textarea');
+    }
+
+    if($snippet['includeEverywhereActive']==0) {
+        $types=$tcm->Utils->query(TCM_QUERY_POST_TYPES);
+        foreach($types as $v) {
+            $includeActiveKey='includePostsOfType_'.$v['name'].'_Active';
+            $includeArrayKey='includePostsOfType_'.$v['name'];
+            $exceptActiveKey='exceptPostsOfType_'.$v['name'].'_Active';
+            $exceptArrayKey='exceptPostsOfType_'.$v['name'];
+            if($snippet[$includeActiveKey]==1 && $snippet[$exceptActiveKey]==1) {
+                if(in_array(-1, $snippet[$includeArrayKey]) && in_array(-1, $snippet[$exceptArrayKey])) {
+                    $tcm->Options->pushErrorMessage('Error.IncludeExcludeAll', $v['name']);
+                }
+            }
+        }
+    }
+}
 function tcm_ui_editor() {
     global $tcm;
 
@@ -18,18 +49,7 @@ function tcm_ui_editor() {
             }
         }
 
-        if ($snippet['name'] == '') {
-            $tcm->Options->pushErrorMessage('Please enter a unique name');
-        } else {
-            $exist=$tcm->Manager->exists($snippet['name']);
-            if ($exist && $exist['id'] != $snippet['id']) {
-                //nonostante il tutto il nome deve essee univoco
-                $tcm->Options->pushErrorMessage('You have entered a name that already exists. IDs are NOT case-sensitive');
-            }
-        }
-        if ($snippet['code'] == '') {
-            $tcm->Options->pushErrorMessage('Paste your HTML Tracking Code into the textarea');
-        }
+        tcm_ui_editor_check($snippet);
 
         if (!$tcm->Options->hasErrorMessages()) {
             $snippet = $tcm->Manager->put($snippet['id'], $snippet);
@@ -42,13 +62,13 @@ function tcm_ui_editor() {
             }
         }
     }
-    $tcm->Options->writeMessages();
-
+    if(!$tcm->Options->writeMessages()) {
+        tcm_ui_free_notice();
+    }
     if($tcm->Manager->rc()<=0 && $id<=0) {
         $tcm->Utils->redirect(TCM_PAGE_MANAGER);
         exit();
     }
-    tcm_ui_free_notice();
 
     ?>
     <script>
@@ -156,7 +176,7 @@ function tcm_ui_editor() {
     $values = array(TCM_POSITION_HEAD, TCM_POSITION_BODY, TCM_POSITION_FOOTER);
     $tcm->Form->select('position', $snippet, $values, FALSE);
 
-    $tcm->Form->p('When do you want to add this code?');
+    $tcm->Form->p('Where do you want to add this code?');
     $args=array('class'=>'tcm-hideShow tcm-checkbox'
         , 'tcm-hideIfTrue'=>'true'
         , 'tcm-hideShow'=>'tcm-include-div');
@@ -238,7 +258,7 @@ function tcm_formOptions($prefix, $snippet) {
 
         $keyActive=$prefix.'PostsOfType_'.$v['name'].'_Active';
         $keyArray=$prefix.'PostsOfType_'.$v['name'];
-        if($snippet[$keyActive]==0 && count($snippet[$keyArray])==0) {
+        if($snippet[$keyActive]==0 && count($snippet[$keyArray])==0 && $prefix!='except') {
             //when enabled default selected -1
             $snippet[$keyArray]=array(-1);
         }

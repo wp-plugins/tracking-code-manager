@@ -57,7 +57,7 @@ class TCM_Tracking {
         $active_plugin = get_option( 'active_plugins' );
         foreach ( $active_plugin as $plugin_path ) {
             if ( ! function_exists( 'get_plugin_data' ) ) {
-                require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+                require_once(ABSPATH . 'wp-admin/includes/plugin.php');
             }
 
             $plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_path );

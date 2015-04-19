@@ -29,10 +29,10 @@ function tcm_ui_metabox($post) {
             } else {
                 if(in_array($id, $ids)) {
                     $checked=' checked';
-                    $active=($snippet['includePostsOfType_'.$postType.'_Active']>0);
-                    if(!$active) {
-                        $checked='';
-                    }
+                    //$active=($snippet['includePostsOfType_'.$postType.'_Active']>0);
+                    //if(!$active) {
+                    //    $checked='';
+                    //}
                 }
             }
             ?>

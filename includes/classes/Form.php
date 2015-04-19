@@ -227,7 +227,7 @@ class TCM_Form {
         $defaults=array();
         $other=$this->parseArgs($args, $defaults);
         ?>
-            <input type="button" class="button tcm-button" value="<?php $tcm->Lang->P('Delete?')?>" onclick="if (confirm('<?php $tcm->Lang->P('Are you sure you want to delete?')?>') ) window.location='<?php echo TCM_TAB_MANAGER_URI?>&action=<?php echo $action?>&id=<?php echo $id ?>&amp;tcm_nonce=<?php echo esc_attr(wp_create_nonce('tcm_delete')); ?>';" <?php echo $other?> />
+            <input type="button" class="button tcm-button" value="<?php $tcm->Lang->P('Delete?')?>" onclick="if (confirm('<?php $tcm->Lang->P('Question.DeleteQuestion')?>') ) window.location='<?php echo TCM_TAB_MANAGER_URI?>&action=<?php echo $action?>&id=<?php echo $id ?>&amp;tcm_nonce=<?php echo esc_attr(wp_create_nonce('tcm_delete')); ?>';" <?php echo $other?> />
             &nbsp;
         <?php
     }

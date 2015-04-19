@@ -194,7 +194,7 @@ class TCM_Manager {
     public function getCodes($position, $post, $args=array()) {
         global $tcm;
 
-        $defaults=array('metabox'=>FALSE, 'field'=>'code');
+        $defaults=array('field'=>'code');
         $args=wp_parse_args($args, $defaults);
 
         $postId=0;
@@ -210,7 +210,7 @@ class TCM_Manager {
         $keys=$this->keys();
         foreach ($keys as $id) {
             $v=$this->get($id);
-            if(!$v || ($position>-1 && $v['position']!=$position) || $v['code']=='' || (!$args['metabox'] && !$v['active'])) {
+            if(!$v || ($position>-1 && $v['position']!=$position) || $v['code']=='' || !$v['active']) {
                 continue;
             }
             if($tcm->Options->hasSnippetWritten($v)) {

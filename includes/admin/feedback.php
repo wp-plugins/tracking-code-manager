@@ -40,6 +40,6 @@ function tcm_ui_feedback() {
     $tcm->Form->checkbox('track');
 
     $tcm->Form->nonce('tcm_feedback', 'tcm_feedback');
-    $tcm->Form->submit('Contact Us');
+    $tcm->Form->submit('Send');
     $tcm->Form->formEnds();
 }

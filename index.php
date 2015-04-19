@@ -6,11 +6,11 @@ Description: A plugin to manage ALL your tracking code and conversion pixels, si
 Author: IntellyWP
 Author URI: http://intellywp.com/
 Email: aleste@intellywp.com
-Version: 1.5
+Version: 1.5.1
 */
 define('TCM_PLUGIN_FILE',__FILE__);
 define('TCM_PLUGIN_NAME', 'tracking-code-manager');
-define('TCM_PLUGIN_VERSION', '1.5');
+define('TCM_PLUGIN_VERSION', '1.5.1');
 define('TCM_PLUGIN_AUTHOR', 'IntellyWP');
 define('TCM_PLUGIN_ROOT', dirname(__FILE__).'/');
 define('TCM_PLUGIN_IMAGES', plugins_url( 'assets/images/', __FILE__ ));
@@ -39,18 +39,15 @@ define('TCM_TAB_SETTINGS_URI', TCM_PAGE_MANAGER.'&tab='.TCM_TAB_SETTINGS);
 define('TCM_TAB_ABOUT', 'about');
 define('TCM_TAB_ABOUT_URI', TCM_PAGE_MANAGER.'&tab='.TCM_TAB_ABOUT);
 
-include_once(dirname(__FILE__).'/includes/class-TCM-cron.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-tracking.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-logger.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-manager.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-form.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-options.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-check.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-utils.php');
-include_once(dirname(__FILE__).'/includes/class-TCM-language.php');
-
-global $tcm;
-$tcm=new TCM_Singleton();
+include_once(dirname(__FILE__).'/includes/classes/Cron.php');
+include_once(dirname(__FILE__).'/includes/classes/Tracking.php');
+include_once(dirname(__FILE__).'/includes/classes/Logger.php');
+include_once(dirname(__FILE__).'/includes/classes/Manager.php');
+include_once(dirname(__FILE__).'/includes/classes/Form.php');
+include_once(dirname(__FILE__).'/includes/classes/Options.php');
+include_once(dirname(__FILE__).'/includes/classes/Check.php');
+include_once(dirname(__FILE__).'/includes/classes/Utils.php');
+include_once(dirname(__FILE__).'/includes/classes/Language.php');
 
 include_once(dirname(__FILE__).'/includes/actions.php');
 include_once(dirname(__FILE__).'/includes/core.php');
@@ -63,6 +60,11 @@ include_once(dirname(__FILE__).'/includes/admin/feedback.php');
 include_once(dirname(__FILE__).'/includes/admin/metabox.php');
 include_once(dirname(__FILE__).'/includes/admin/settings.php');
 include_once(dirname(__FILE__).'/includes/admin/manager.php');
+
+global $tcm;
+$tcm=new TCM_Singleton();
+$tcmTabs=new TCM_Tabs();
+
 
 class TCM_Singleton {
     var $Lang;
@@ -77,7 +79,7 @@ class TCM_Singleton {
 
     function __construct() {
         $this->Lang=new TCM_Language();
-        $this->Lang->load('tcm', TCM_PLUGIN_ROOT.'languages/TCM.txt');
+        $this->Lang->load('tcm', TCM_PLUGIN_ROOT.'languages/Lang.txt');
 
         $this->Utils=new TCM_Utils();
         $this->Form=new TCM_Form();
@@ -94,13 +96,15 @@ class TCM_Tabs {
     private $tabs = array();
 
     function __construct() {
-        add_action('admin_menu', array(&$this, 'attachMenu'));
-        add_filter('plugin_action_links', array(&$this, 'pluginActions'), 10, 2);
-        add_action('admin_enqueue_scripts',  array(&$this, 'enqueueScripts'));
+        global $tcm;
+        if($tcm->Utils->isAdminUser()) {
+            add_filter('plugin_action_links', array(&$this, 'pluginActions'), 10, 2);
+            add_action('admin_menu', array(&$this, 'attachMenu'));
+            add_action('admin_enqueue_scripts',  array(&$this, 'enqueueScripts'));
+        }
     }
 
     function attachMenu() {
-        global $tcm;
         $name='Tracking Code Manager';
         add_submenu_page('options-general.php'
             , $name, $name
@@ -108,7 +112,7 @@ class TCM_Tabs {
     }
     function pluginActions($links, $file) {
         global $tcm;
-        if($file==TCM_PLUGIN_NAME.'/'.TCM_PLUGIN_NAME.'.php'){
+        if($file==TCM_PLUGIN_NAME.'/index.php'){
             $settings = "<a href='".TCM_PAGE_MANAGER."'>" . $tcm->Lang->L('Settings') . '</a> ';
             $premium = "<a href='".TCM_PAGE_PREMIUM."'>" . $tcm->Lang->L('PREMIUM') . '</a> ';
             $links = array_merge(array($settings, $premium), $links);
@@ -138,7 +142,7 @@ class TCM_Tabs {
         $tab=$tcm->Utils->qs('tab', TCM_TAB_MANAGER);
 
         if($id>0 || $tcm->Manager->rc()>0) {
-            $this->tabs[TCM_TAB_EDITOR]=$tcm->Lang->L($id>0 ? 'Edit' : 'New');
+            $this->tabs[TCM_TAB_EDITOR]=$tcm->Lang->L($id>0 && $tab==TCM_TAB_EDITOR ? 'Edit' : 'New');
         } elseif($tab==TCM_TAB_EDITOR) {
             $tab=TCM_TAB_MANAGER;
         }
@@ -209,7 +213,7 @@ class TCM_Tabs {
                 <?php
             }
             ?>
-            <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
             <style>
                 .starrr {display:inline-block}
                 .starrr i{font-size:16px;padding:0 1px;cursor:pointer;color:#2ea2cc;}
@@ -234,5 +238,3 @@ class TCM_Tabs {
         <div style="clear:both;"></div>
     <?php }
 }
-
-$tcmTabs=new TCM_Tabs();

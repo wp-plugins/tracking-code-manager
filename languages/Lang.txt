@@ -15,7 +15,7 @@ FeedbackError=Errors sending feedback. Please email us at aleste@intellywp.com
 
 AboutNotice=Thank you for trying our amazing plugin. Now you are able to quickly track what you need. Feel free to contact us using our feedback form or our email <a href="mailto:aleste@intellywp.com">aleste@intellywp.com</a>
 AboutTitle=We are crazy! But...
-ManagerTitle=Tracking Code Manager FREE
+ManagerTitle=Tracking Code Manager
 ManagerSubtitle=<b>WARNING</b> This does not filter your HTML code for errors or for malicious scripts. Use it at your own risk.
 SettingsTitle=Plugin settings
 FeedbackHeader=Like this plugin? Send us a feedback
@@ -73,5 +73,7 @@ Notice.ProFeature2=In the latest post
 Notice.ProFeature3=In specific categories
 Notice.ProFeature4=In specific tags
 
-QuestionActiveOn=Are you sure you want to active this code?
-QuestionActiveOff=Are you sure you want to disactive this code?
+QuestionActiveOn=Do you want to activate this code?
+QuestionActiveOff=Do you want to deactivate this code?
+Error.IncludeExcludeAll=You cannot choose [All] in both Include/Exclude <b>{0}</b> configuration
+Question.DeleteQuestion=Do you want to delete this code?
