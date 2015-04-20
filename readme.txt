@@ -3,7 +3,7 @@ Contributors: IntellyWP
 Donate link: http://intellywp.com/tracking-code-manager/
 Tags: remarketing,retargeting,tracking cookies,ppc management,tracking code,facebook retargeting,eye tracking software,adwords remarketing,conversion tracking,facebook conversion pixel,facebook pixel conversion,conversion pixel,conversion tracking pixel,conversion tracking adwords,tracking codes,trackingcode,analytics conversion tracking,track conversion,conversion code,conversion adwords,adwords conversion tracking code,tracking pixel code,pixel tracking code,tracking script,tracking code analytics,conversion tracking software,ppc tracking,conversion tracking analytics,track conversions,conversion pixel tracking,html tracking,adword conversion tracking,conversion tracking tool,tracking conversions,url tracking code,html tracking code,google analytics web tracking code,pay per click tracking,conversion tracking script,snippets,shortcode,shortcode tracking code
 Requires at least: 2.7
-Tested up to: 4.1.1
+Tested up to: 4.2
 
 A plugin to manage ALL your tracking code and conversion pixels, simply.
 Compatible with Facebook Ads, Google Adwords and ALL kind of Saas tool.
