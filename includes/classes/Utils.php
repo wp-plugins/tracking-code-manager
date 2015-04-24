@@ -18,7 +18,7 @@ class TCM_Utils {
         if (!function_exists('wp_get_current_user')) {
             require_once(ABSPATH . 'wp-includes/pluggable.php');
         }
-        return (current_user_can('manage_options'));
+        return (is_multisite() || current_user_can('manage_options'));
     }
 
     //verifica se il parametro needle è un elemento dell'array haystack

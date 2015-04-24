@@ -152,7 +152,7 @@ class TCM_Manager {
         $postId=intval($postId);
         if($postId>0) {
             $what=$prefix.'PostsOfType_'.$postType;
-            if(!$include && $snippet[$what.'_Active'] && $tcm->Utils->inArray($postId, $snippet[$what])) {
+            if(!$include && isset($snippet[$what.'_Active']) && isset($snippet[$what]) && $snippet[$what.'_Active'] && $tcm->Utils->inArray($postId, $snippet[$what])) {
                 $tcm->Logger->debug('MATCH=%s SNIPPET=%s[%s] DUE TO POST=%s OF TYPE=%s IN [%s]'
                     , $prefix, $snippet['id'], $snippet['name'], $postId, $postType, $snippet[$what]);
                 $include=TRUE;

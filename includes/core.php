@@ -5,7 +5,7 @@ function tcm_head(){
     global $post, $tcm;
 
     $tcm->Options->setPostShown(NULL);
-    if(is_page($post->ID) || is_single($post->ID)) {
+    if($post && isset($post->ID) && is_page($post->ID) || is_single($post->ID)) {
         $tcm->Options->setPostShown($post);
         $tcm->Logger->info('POST ID=%s IS SHOWN', $post->ID);
     }

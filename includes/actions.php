@@ -24,7 +24,7 @@ add_action('init', 'tcm_do_action');
 function tcm_do_action() {
     global $tcm;
 
-	if ($tcm->Utils->qs('tcm_action')) {
+	if (isset($tcm) && isset($tcm->Utils) && $tcm->Utils->qs('tcm_action')) {
         $args=array_merge($_GET, $_POST, $_COOKIE, $_SERVER);
         $name='tcm_'.$tcm->Utils->qs('tcm_action');
         if(has_action($name)) {

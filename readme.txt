@@ -1,7 +1,7 @@
 === Tracking Code Manager ===
 Contributors: IntellyWP
 Donate link: http://intellywp.com/tracking-code-manager/
-Tags: remarketing,retargeting,tracking cookies,ppc management,tracking code,facebook retargeting,eye tracking software,adwords remarketing,conversion tracking,facebook conversion pixel,facebook pixel conversion,conversion pixel,conversion tracking pixel,conversion tracking adwords,tracking codes,trackingcode,analytics conversion tracking,track conversion,conversion code,conversion adwords,adwords conversion tracking code,tracking pixel code,pixel tracking code,tracking script,tracking code analytics,conversion tracking software,ppc tracking,conversion tracking analytics,track conversions,conversion pixel tracking,html tracking,adword conversion tracking,conversion tracking tool,tracking conversions,url tracking code,html tracking code,google analytics web tracking code,pay per click tracking,conversion tracking script,snippets,shortcode,shortcode tracking code
+Tags: remarketing,retargeting,tracking cookies,ppc management,tracking code,facebook retargeting,eye tracking software,adwords remarketing,conversion tracking,facebook conversion pixel,facebook pixel conversion,conversion pixel,conversion tracking pixel,conversion tracking adwords,tracking codes,trackingcode,analytics conversion tracking,track conversion,conversion code,conversion adwords,adwords conversion tracking code,tracking pixel code,pixel tracking code,tracking script,tracking code analytics,conversion tracking software,ppc tracking,conversion tracking analytics,track conversions,conversion pixel tracking,html tracking,adword conversion tracking,conversion tracking tool,tracking conversions,url tracking code,html tracking code,google analytics web tracking code,pay per click tracking,conversion tracking script,snippets,shortcode,shortcode tracking code,google tag manager,tag management,gtm,tag manager
 Requires at least: 2.7
 Tested up to: 4.2
 
@@ -81,6 +81,13 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 6. Tracking code manager is also as a metabox in your posts/pages (you can remove by settings)
 
 == Changelog ==
+
+= 1.5.2 =
+*Release Date - 24/04/2015*
+* FULLY COMPATIBLE WITH WORDPRESS 4.2
+* [Bugfix, thanks boz71] compatible with multisite installation (Network Activation)
+* [Bugfix, thanks AlfonsBerger] Fixed Trying to get property of non-object in ..core.php on line 8
+* [Bugfix, thanks AlfonsBerger] Undefined index: includePostsOfType_product_Active in ..Manager.php on line 155
 
 = 1.5.1 =
 *Release Date - 19/04/2015*
