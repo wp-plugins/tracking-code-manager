@@ -84,6 +84,7 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 
 = 1.5.2 =
 *Release Date - 24/04/2015*
+
 * FULLY COMPATIBLE WITH WORDPRESS 4.2
 * [Bugfix, thanks boz71] compatible with multisite installation (Network Activation)
 * [Bugfix, thanks AlfonsBerger] Fixed Trying to get property of non-object in ..core.php on line 8
