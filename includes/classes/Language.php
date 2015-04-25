@@ -49,19 +49,17 @@ class TCM_Language {
         } else {
             //special way to call this function passing arguments
             //WTF_something means key=WTF and something as first argument
-            if(strpos($result, '_')!==FALSE) {
-                $what = explode('_', $result);
-                $array = array();
-                $text = '';
-                for ($i = 0; $i < count($what); $i++) {
-                    if ($i % 2 == 0) {
-                        $text .= $what[$i];
-                    } else {
-                        $array[] = $what[$i];
-                    }
+            $s=strpos($result, '_');
+            if ($s!==FALSE) {
+                $text = substr($result, 0, $s);
+                $value = substr($result, $s + 1);
+                $e = strrpos($value, '_');
+                if ($e!==FALSE) {
+                    $text .= substr($value, $e + 1);
+                    $value = substr($value, 0, $e);
                 }
                 if (isset($bundle[$text])) {
-                    $result=TRUE;
+                    $result = TRUE;
                 }
             }
         }
@@ -94,20 +92,18 @@ class TCM_Language {
             } else {
                 //special way to call this function passing arguments
                 //WTF_something means key=WTF and something as first argument
-                if (strpos($result, '_') !== FALSE) {
-                    $what = explode('_', $result);
-                    $array = array();
-                    $text = '';
-                    for ($i = 0; $i < count($what); $i++) {
-                        if ($i % 2 == 0) {
-                            $text .= $what[$i];
-                        } else {
-                            $array[] = $what[$i];
-                        }
+                $s=strpos($result, '_');
+                if ($s!==FALSE) {
+                    $text = substr($result, 0, $s);
+                    $value = substr($result, $s + 1);
+                    $e = strrpos($value, '_');
+                    if ($e!==FALSE) {
+                        $text .= substr($value, $e + 1);
+                        $value = substr($value, 0, $e);
                     }
                     if (isset($bundle[$text])) {
                         $result = $bundle[$text];
-                        $args = $array;
+                        $args=array($value);
                     }
                 }
                 $result = __($result, $this->domain);

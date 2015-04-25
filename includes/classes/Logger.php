@@ -13,7 +13,8 @@ class TCM_Logger {
     private $context=array();
 
     public function __construct($name='TCM') {
-        $this->$name=$name;
+        if($name=='') $name='TCM';
+        $this->name=$name;
     }
 
     public function pushContext($context) {

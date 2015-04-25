@@ -89,7 +89,6 @@ add_action('save_post', 'tcm_save_meta_box_data');
 function tcm_save_meta_box_data($postId) {
     global $tcm;
 
-    $postType=$_POST['post_type'];
     //in case of custom post type edit_ does not exist
     //if (!current_user_can('edit_'.$postType, $postId)) {
     //    return;
@@ -99,7 +98,7 @@ function tcm_save_meta_box_data($postId) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
-    if (!isset($_POST['tcm_meta_box_nonce'])) {
+    if (!isset($_POST['tcm_meta_box_nonce']) || !isset($_POST['post_type'])) {
         return;
     }
     // Verify that the nonce is valid.
@@ -107,6 +106,7 @@ function tcm_save_meta_box_data($postId) {
         return;
     }
 
+    $postType=$_POST['post_type'];
     $previousIds=explode(',', $tcm->Utils->qs('tcm_previous_ids'));
     $currentIds=$tcm->Utils->qs('tcm_ids', array());
     $keyArray='PostsOfType_'.$postType;

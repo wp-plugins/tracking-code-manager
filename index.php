@@ -6,11 +6,11 @@ Description: A plugin to manage ALL your tracking code and conversion pixels, si
 Author: IntellyWP
 Author URI: http://intellywp.com/
 Email: aleste@intellywp.com
-Version: 1.5.2
+Version: 1.5.3
 */
 define('TCM_PLUGIN_FILE',__FILE__);
 define('TCM_PLUGIN_NAME', 'tracking-code-manager');
-define('TCM_PLUGIN_VERSION', '1.5.2');
+define('TCM_PLUGIN_VERSION', '1.5.3');
 define('TCM_PLUGIN_AUTHOR', 'IntellyWP');
 define('TCM_PLUGIN_ROOT', dirname(__FILE__).'/');
 define('TCM_PLUGIN_IMAGES', plugins_url( 'assets/images/', __FILE__ ));
