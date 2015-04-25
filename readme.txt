@@ -30,11 +30,15 @@ Putting the tracking code directly in the theme files, you risk to lose importan
 
 With Tracking Code Manager you can forget about this problem also if you will change your theme in the future.
 
+> <strong>Bug Reports</strong><br>
+> Feel free to reach us by email for any problem you have with our plugins.
+> Describe the steps to reproduce the bug and we will be happy to help!
+> To report a bug use the form at http://intellywp.com/report-a-bug/
+
 [youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
 
-= PREMIUM VERSION =
-
-If you need more advanced feature you can also try our PREMIUM version available in the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/). This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
+> <strong>Premium version</strong><br>
+> If you need more advanced feature you can also try our PREMIUM version available in the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/). This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
 == Installation ==
 
