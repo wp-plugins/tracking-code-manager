@@ -20,6 +20,11 @@ For every single service you use, you’ll have to put a script or a tracking pi
 
 Tracking Code Manager plugin allows you to gather EVERY code and snippet displaying them exactly where you want, whether in the whole site or in specific pages and posts.
 
+> <strong>Bug Reports</strong><br>
+> Feel free to reach us by email for any problem you have with our plugins.
+> Describe the steps to reproduce the bug and we will be happy to help!<br>
+> To report a bug use the form at http://intellywp.com/report-a-bug/
+
 = THE REAL PROBLEM =
 
 We are living in the Saas era, where online services manage all kind of software, analysis and advanced tools. Since every one of them needs a script or a tracking code, why don’t we take it easy with the fast Tracking Code Manager plugin?
@@ -29,11 +34,6 @@ We are living in the Saas era, where online services manage all kind of software
 Putting the tracking code directly in the theme files, you risk to lose important trackings or external service integrations when it will be updated.
 
 With Tracking Code Manager you can forget about this problem also if you will change your theme in the future.
-
-> <strong>Bug Reports</strong><br>
-> Feel free to reach us by email for any problem you have with our plugins.
-> Describe the steps to reproduce the bug and we will be happy to help!<br>
-> To report a bug use the form at http://intellywp.com/report-a-bug/
 
 [youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
 
