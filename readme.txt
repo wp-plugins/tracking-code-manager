@@ -32,7 +32,7 @@ With Tracking Code Manager you can forget about this problem also if you will ch
 
 > <strong>Bug Reports</strong><br>
 > Feel free to reach us by email for any problem you have with our plugins.
-> Describe the steps to reproduce the bug and we will be happy to help!
+> Describe the steps to reproduce the bug and we will be happy to help!<br>
 > To report a bug use the form at http://intellywp.com/report-a-bug/
 
 [youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
