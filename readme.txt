@@ -88,6 +88,7 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 
 = 1.5.3 =
 *Release Date - 25/04/2015*
+
 * [Bugfix, thanks AlfonsBerger] Undefined index: post_type in metabox.php on line 92
 * [Bugfix, thanks Stefan,Eldi] {PREMIUM} Corrected a bug that can cause script missing into HTML using some configuration
 * Minor bugfixes
