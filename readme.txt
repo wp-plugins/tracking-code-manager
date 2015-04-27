@@ -37,6 +37,9 @@ With Tracking Code Manager you can forget about this problem also if you will ch
 
 [youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
 
+http://intellywp.com/wp-content/uploads/2015/03/1general.png
+<img src="http://intellywp.com/wp-content/uploads/2015/03/1general.png"/>
+
 > <strong>Premium version</strong><br>
 > If you need more advanced feature you can also try our PREMIUM version available in the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/). This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
