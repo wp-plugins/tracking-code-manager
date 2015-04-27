@@ -25,6 +25,25 @@ Tracking Code Manager plugin allows you to gather EVERY code and snippet display
 > Describe the steps to reproduce the bug and we will be happy to help!<br>
 > To report a bug use the form at http://intellywp.com/report-a-bug/
 
+<!--BEGIN: TRACKING CODE MANAGER BY INTELLYWP.COM IN HEAD//-->
+<script>(function() {
+  var _fbq = window._fbq || (window._fbq = []);
+  if (!_fbq.loaded) {
+    var fbds = document.createElement('script');
+    fbds.async = true;
+    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(fbds, s);
+    _fbq.loaded = true;
+  }
+  _fbq.push(['addPixelId', '1']);
+})();
+window._fbq = window._fbq || [];
+window._fbq.push(['track', 'PixelInitialized', {}]);
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1&ev=PixelInitialized" /></noscript>
+<!--END: TRACKING CODE MANAGER BY INTELLYWP.COM IN HEAD//-->
+
 = THE REAL PROBLEM =
 
 We are living in the Saas era, where online services manage all kind of software, analysis and advanced tools. Since every one of them needs a script or a tracking code, why don’t we take it easy with the fast Tracking Code Manager plugin?
