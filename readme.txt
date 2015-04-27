@@ -29,6 +29,10 @@ Tracking Code Manager plugin allows you to gather EVERY code and snippet display
 
 We are living in the Saas era, where online services manage all kind of software, analysis and advanced tools. Since every one of them needs a script or a tracking code, why don’t we take it easy with the fast Tracking Code Manager plugin?
 
+<iframe src="http://www.w3schools.com" width="100" height="100">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+
 = FORGET THE UPDATING PROBLEM =
 
 Putting the tracking code directly in the theme files, you risk to lose important trackings or external service integrations when it will be updated.
