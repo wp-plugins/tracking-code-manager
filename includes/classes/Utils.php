@@ -15,10 +15,14 @@ class TCM_Utils {
     }
 
     function isAdminUser() {
+        //https://wordpress.org/support/topic/how-to-check-admin-right-without-include-pluggablephp
+        return TRUE;
+        /*
         if (!function_exists('wp_get_current_user')) {
             require_once(ABSPATH . 'wp-includes/pluggable.php');
         }
         return (is_multisite() || current_user_can('manage_options'));
+        */
     }
 
     //verifica se il parametro needle è un elemento dell'array haystack
@@ -108,7 +112,7 @@ class TCM_Utils {
         }
 
         if (is_string($result)) {
-            $result = urldecode($result);
+            //$result = urldecode($result);
             $result = trim($result);
         }
 

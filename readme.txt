@@ -86,6 +86,13 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 
 == Changelog ==
 
+= 1.5.4 =
+*Release Date - 05/05/2015*
+
+* [Bugfix, thanks Bradon] Tracking code with "+" (plus) symbol will be changed without this symbol so they don't works properly
+* [Bugfix, thanks JS,Dale] Now we are compatible with wpMandrill and all other plugins that needs to redefine the wp_mail function
+* Minor bugfixes
+
 = 1.5.3 =
 *Release Date - 25/04/2015*
 

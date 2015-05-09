@@ -19,7 +19,7 @@ ManagerTitle=Tracking Code Manager
 ManagerSubtitle=<b>WARNING</b> This does not filter your HTML code for errors or for malicious scripts. Use it at your own risk.
 SettingsTitle=Plugin settings
 FeedbackHeader=Are you looking for new features? Send us a feedback
-AboutText1=We are Stefano and Alessio, two guys in love with Wordpress, coding and marketing! Our company IntellyWP is an idea to bring Intelly ideas to your Intelly site ;)
+AboutText1=We are Stefan and Alex, two guys in love with Wordpress, coding and marketing! Our company IntellyWP is an idea to bring Intelly ideas to your Intelly site ;)
 AboutText2=Feel free to reach us by the feedback form below.
 
 CodeDeleteNotice=Tracking code "#{0} ({1})" successfully deleted
@@ -77,3 +77,4 @@ QuestionActiveOn=Do you want to activate this code?
 QuestionActiveOff=Do you want to deactivate this code?
 Error.IncludeExcludeAll=You cannot choose [All] in both Include/Exclude <b>{0}</b> configuration
 Question.DeleteQuestion=Do you want to delete this code?
+
