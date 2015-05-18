@@ -186,7 +186,7 @@ class TCM_Manager {
             foreach($codes as $v) {
                 echo "\n$v";
             }
-            echo "\n<!--END: TRACKING CODE MANAGER BY INTELLYWP.COM IN $text//-->";
+            echo "\n<!--END: https://wordpress.org/plugins/tracking-code-manager IN $text//-->";
         }
     }
 
@@ -286,11 +286,14 @@ class TCM_Manager {
         foreach($ids as $id) {
             $snippet=$this->get($id);
             if($snippet) {
+                $result+=1;
+                /*
                 if($snippet['codesCount']>0) {
                     $result+=intval($snippet['codesCount']);
                 } else {
                     $result+=1;
                 }
+                */
             }
         }
         return $result;

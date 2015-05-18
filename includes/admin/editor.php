@@ -244,6 +244,8 @@ function tcm_notice_pro_features() {
         ?>
         <div style="clear:both;"></div>
         <div style="height:10px;"></div>
+        <a href="<?php echo TCM_PAGE_PREMIUM?>" target="_blank">[ <?php $tcm->Lang->P('Notice.ProCTA')?> ]</a>
+        <div style="height:10px;"></div>
     </div>
     <br/>
 <?php }

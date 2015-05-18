@@ -61,7 +61,7 @@ Absolutely not! Since this plugin is built with lightweight code, you won’t no
 
 = Can I put a tracking code or a script in ONE (maybe TWO?) specific page? =
 
-Of course you can! You can choose to put the code in a single page, in some posts, or in the whole website (more features in pro version).
+Of course you can! You can choose to put the code in a single page, in some posts, or in the whole website (more features in PREMIUM version).
 
 = Can I track conversions? =
 
@@ -75,6 +75,10 @@ Yes! For example you can put Facebook Pixel inside a certain posts of your blog 
 
 Nope! We tested the most famous Google Analytics plugins and it will not brake any of them.
 
+= How can I be sure that you Tracking Code Manager insert properly my scripts? =
+
+You can see in the source code of your page looking for "TRACKING CODE MANAGER" or you can install some Addon of your browser to check that your scripts are properly inserted. We suggest <a href="https://chrome.google.com/webstore/detail/fb-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc">FB Pixel Helper</a> for Facebook codes and <a href="https://chrome.google.com/webstore/detail/tag-assistant-by-google/kejbdjndbnbjgmefkgdddjlbokphdefk">Tag Assistant (by Google)</a> for Google codes.
+
 == Screenshots ==
 
 1. New tracking code scripts
@@ -85,6 +89,14 @@ Nope! We tested the most famous Google Analytics plugins and it will not brake a
 6. Tracking code manager is also as a metabox in your posts/pages (you can remove by settings)
 
 == Changelog ==
+
+= 1.5.5 =
+*Release Date - 18/05/2015*
+
+* Some translations corrected
+* Added Tab "FAQ" with some FAQ
+* Removed Feedback from Manager Tab, now only in About Tab
+* Minor bugfixes
 
 = 1.5.4 =
 *Release Date - 09/05/2015*

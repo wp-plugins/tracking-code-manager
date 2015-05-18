@@ -96,17 +96,21 @@ function tcm_ui_manager() {
         <table class="widefat fixed" style="width:850px;">
             <thead>
                 <tr>
+                    <th>#N</th>
                     <th><?php $tcm->Lang->P('Name')?></th>
                     <th><?php $tcm->Lang->P('Position')?></th>
                     <th style="text-align:center;"><?php $tcm->Lang->P('Active?')?></th>
                     <th style="text-align:center;"><?php $tcm->Lang->P('Each pages?')?></th>
-                    <th style="text-align:center;"><?php $tcm->Lang->P('Count')?></th>
+                    <?php /*<th style="text-align:center;"><?php $tcm->Lang->P('Count')?></th> */?>
                     <th style="text-align:center;"><?php $tcm->Lang->P('Actions')?></th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($snippets as $snippet) { ?>
+            <?php
+            $i=1;
+            foreach ($snippets as $snippet) { ?>
                 <tr>
+                    <td>#<?php echo $i++ ?></td>
                     <td><?php echo $snippet['name']?></td>
                     <td><?php $tcm->Lang->P('Editor.position.'.$snippet['position'])?></td>
                     <td style="text-align:center;">
@@ -129,7 +133,7 @@ function tcm_ui_manager() {
                     $hide=!$snippet['active'];
                     tcm_ui_manager_column($snippet['includeEverywhereActive'], NULL, $hide);
                     ?>
-                    <td style="text-align:center;"><?php echo $snippet['codesCount']?></td>
+                    <?php /*<td style="text-align:center;"><?php echo $snippet['codesCount']?></td> */?>
                     <td style="text-align:center;">
                         <a href="<?php echo TCM_TAB_EDITOR_URI?>&id=<?php echo $snippet['id'] ?>">
                             <?php echo $tcm->Lang->L('Edit')?>

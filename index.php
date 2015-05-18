@@ -6,11 +6,12 @@ Description: A plugin to manage ALL your tracking code and conversion pixels, si
 Author: IntellyWP
 Author URI: http://intellywp.com/
 Email: aleste@intellywp.com
-Version: 1.5.4
+Version: 1.5.5
 */
+define('TCM_PLUGIN_PREFIX', 'TCM_');
 define('TCM_PLUGIN_FILE',__FILE__);
 define('TCM_PLUGIN_NAME', 'tracking-code-manager');
-define('TCM_PLUGIN_VERSION', '1.5.4');
+define('TCM_PLUGIN_VERSION', '1.5.5');
 define('TCM_PLUGIN_AUTHOR', 'IntellyWP');
 define('TCM_PLUGIN_ROOT', dirname(__FILE__).'/');
 define('TCM_PLUGIN_IMAGES', plugins_url( 'assets/images/', __FILE__ ));
@@ -36,35 +37,17 @@ define('TCM_TAB_MANAGER', 'manager');
 define('TCM_TAB_MANAGER_URI', TCM_PAGE_MANAGER.'&tab='.TCM_TAB_MANAGER);
 define('TCM_TAB_SETTINGS', 'settings');
 define('TCM_TAB_SETTINGS_URI', TCM_PAGE_MANAGER.'&tab='.TCM_TAB_SETTINGS);
+define('TCM_TAB_FAQ', 'faq');
+define('TCM_TAB_FAQ_URI', TCM_PAGE_MANAGER.'&tab='.TCM_TAB_FAQ);
 define('TCM_TAB_ABOUT', 'about');
 define('TCM_TAB_ABOUT_URI', TCM_PAGE_MANAGER.'&tab='.TCM_TAB_ABOUT);
 
-include_once(dirname(__FILE__).'/includes/classes/Cron.php');
-include_once(dirname(__FILE__).'/includes/classes/Tracking.php');
-include_once(dirname(__FILE__).'/includes/classes/Logger.php');
-include_once(dirname(__FILE__).'/includes/classes/Manager.php');
-include_once(dirname(__FILE__).'/includes/classes/Form.php');
-include_once(dirname(__FILE__).'/includes/classes/Options.php');
-include_once(dirname(__FILE__).'/includes/classes/Check.php');
-include_once(dirname(__FILE__).'/includes/classes/Utils.php');
-include_once(dirname(__FILE__).'/includes/classes/Language.php');
-
-include_once(dirname(__FILE__).'/includes/actions.php');
-include_once(dirname(__FILE__).'/includes/core.php');
-include_once(dirname(__FILE__).'/includes/install.php');
-include_once(dirname(__FILE__).'/includes/uninstall.php');
-
-include_once(dirname(__FILE__).'/includes/admin/about.php');
-include_once(dirname(__FILE__).'/includes/admin/editor.php');
-include_once(dirname(__FILE__).'/includes/admin/feedback.php');
-include_once(dirname(__FILE__).'/includes/admin/metabox.php');
-include_once(dirname(__FILE__).'/includes/admin/settings.php');
-include_once(dirname(__FILE__).'/includes/admin/manager.php');
+include_once(dirname(__FILE__).'/autoload.php');
+tcm_include_php(dirname(__FILE__).'/includes/');
 
 global $tcm;
 $tcm=new TCM_Singleton();
 $tcmTabs=new TCM_Tabs();
-
 
 class TCM_Singleton {
     var $Lang;
@@ -142,12 +125,13 @@ class TCM_Tabs {
         $tab=$tcm->Utils->qs('tab', TCM_TAB_MANAGER);
 
         if($id>0 || $tcm->Manager->rc()>0) {
-            $this->tabs[TCM_TAB_EDITOR]=$tcm->Lang->L($id>0 && $tab==TCM_TAB_EDITOR ? 'Edit' : 'New');
+            $this->tabs[TCM_TAB_EDITOR]=$tcm->Lang->L($id>0 && $tab==TCM_TAB_EDITOR ? 'Edit' : 'Add new');
         } elseif($tab==TCM_TAB_EDITOR) {
             $tab=TCM_TAB_MANAGER;
         }
         $this->tabs[TCM_TAB_MANAGER]=$tcm->Lang->L('Manager');
         $this->tabs[TCM_TAB_SETTINGS]=$tcm->Lang->L('Settings');
+        $this->tabs[TCM_TAB_FAQ]=$tcm->Lang->L('FAQ');
         $this->tabs[TCM_TAB_ABOUT]=$tcm->Lang->L('About');
 
         ?>
@@ -164,6 +148,9 @@ class TCM_Tabs {
                     break;
                 case TCM_TAB_SETTINGS:
                     $header='Settings';
+                    break;
+                case TCM_TAB_FAQ:
+                    $header='Faq';
                     break;
                 case TCM_TAB_ABOUT:
                     $header='About';
@@ -184,12 +171,12 @@ class TCM_Tabs {
                     break;
                 case TCM_TAB_MANAGER:
                     tcm_ui_manager();
-                    if($tcm->Manager->count()>0) {
-                        tcm_ui_feedback();
-                    }
                     break;
                 case TCM_TAB_SETTINGS:
                     tcm_ui_settings();
+                    break;
+                case TCM_TAB_FAQ:
+                    tcm_ui_faq();
                     break;
                 case TCM_TAB_ABOUT:
                     tcm_ui_about();

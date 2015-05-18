@@ -2,7 +2,7 @@
 PluginLimit.Line1=In this FREE version you can insert up to N.{0} different Tracking Code (remaining N.{1})
 PluginLimit.Line2=If you need more Tracking Code or more features please buy our PREMIUM version <a href="{0}" target="_blank"><b>HERE</b></a>
 Editor.Add=Tracking Code "#{0} ({1})" successfully stored.
-Button.Add=Add a new Tracking Code
+Button.Add=Add new Tracking Code
 Button.BuyPRO=Buy PREMIUM
 
 Feedback.email=Contact email
@@ -67,14 +67,29 @@ License.key=Insert the activation key received by email
 EmptyTrackingList=Your tracking code list is empty, please <a href="{0}">CLICK HERE</a> to create new ones.
 
 Notice.ProHeader1=Do you like this plugin?
-Notice.ProHeader2=Using the <b>PREMIUM</b> version you can also include/exclude tracking code:
-Notice.ProFeature1=In your custom post type {0}
-Notice.ProFeature2=In the latest post
-Notice.ProFeature3=In specific categories
-Notice.ProFeature4=In specific tags
+Notice.ProHeader2=With <b>PREMIUM</b> version you can have <b>UNLIMITED</b> tracking codes and also other awesome features:
+Notice.ProFeature1=Include code in latest posts (usefull for remarketing and Facebook Custom Audience)
+Notice.ProFeature2=Include code in your custom post type {0}
+Notice.ProFeature3=Include code in specific categories or tags
+Notice.ProCTA=Click here for the full list of features available in PREMIUM version
 
 QuestionActiveOn=Do you want to activate this code?
 QuestionActiveOff=Do you want to deactivate this code?
 Error.IncludeExcludeAll=You cannot choose [All] in both Include/Exclude <b>{0}</b> configuration
 Question.DeleteQuestion=Do you want to delete this code?
 
+FaqTitle=F.A.Q. Frequently Asked Question
+Faq.Question1=Do you have a video that show me the plugin working?
+Faq.Response1=Sure! Click on the link <a href="http://intellywp.com/tracking-code-manager/" target="_blank">http://intellywp.com/tracking-code-manager</a> for a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
+Faq.Question2=Will this plugin slow my website?
+Faq.Response2=Absolutely not! Since this plugin is built with lightweight code, you won’t notice any difference in speed.
+Faq.Question3=Can I put a tracking code or a script in ONE (maybe TWO?) specific page?
+Faq.Response3=Of course you can! You can choose to put the code in a single page, in some posts, or in the whole website (more features in PREMIUM version).
+Faq.Question4=Can I track conversions?
+Faq.Response4=Yeap! This is one of the main reason to use this plugin! You can track your conversions by putting the conversion pixel or code ONLY inside the thank you page.
+Faq.Question5=Can I manage Facebook Retargeting and Custom Audiences?
+Faq.Response5=Yes! For example you can put Facebook Pixel inside a certain posts of your blog to retarget those users who have already visited that posts on Facebook.
+Faq.Question6=Will this plugin interferes with my Google Analytics plugin?
+Faq.Response6=Nope! We tested the most famous Google Analytics plugins and it will not brake any of them.
+Faq.Question7=How can I be sure that you Tracking Code Manager insert properly my scripts?
+Faq.Response7=You can see in the source code of your page looking for "TRACKING CODE MANAGER" or you can install some Addon of your browser to check that your scripts are properly inserted. We suggest <a href="https://chrome.google.com/webstore/detail/fb-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc" target="_blank">FB Pixel Helper</a> for Facebook codes and <a href="https://chrome.google.com/webstore/detail/tag-assistant-by-google/kejbdjndbnbjgmefkgdddjlbokphdefk" target="_blank">Tag Assistant (by Google)</a> for Google codes.
