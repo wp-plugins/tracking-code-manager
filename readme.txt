@@ -106,7 +106,7 @@ Have a look at the source code of your page (search for: Tracking Code Manager) 
 
 * Added Conversion Tracking for WooCommerce, Easy Digital Download and WP eCommerce
 * Added Whats new page
-* Added videos for abetter explanation
+* Added videos for a better explanation
 * Minor bugfixes
 
 = 1.5.5 =
