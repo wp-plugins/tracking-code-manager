@@ -122,41 +122,53 @@ class TCM_Utils {
     function query($query, $args = NULL) {
         global $tcm;
 
-        $defaults = array('post_type' => '', 'all' => FALSE);
-        $args = wp_parse_args($args, $defaults);
+        $defaults = array(
+            'post_type' => ''
+            , 'all' => FALSE
 
-        $result = $tcm->Options->getCache('Query', $query . '_' . $args['post_type']);
-        if (!is_array($result) || count($result) == 0) {
-            $q = NULL;
-            $id = 'ID';
-            $name = 'post_title';
-            switch ($query) {
-                case TCM_QUERY_POSTS_OF_TYPE:
-                    $options = array('posts_per_page' => -1, 'post_type' => $args['post_type']);
-                    $q = get_posts($options);
-                    break;
+        );
+        $args = $tcm->Utils->parseArgs($args, $defaults);
+
+        if($query==TCM_QUERY_CONVERSION_PLUGINS) {
+            $array=$tcm->Ecommerce->getPlugins(FALSE);
+            $result=array();
+            foreach($array as $k=>$v) {
+                $result[]=$v;
+            }
+        } else {
+            $result = $tcm->Options->getCache('Query', $query . '_' . $args['post_type']);
+            if (!is_array($result) || count($result) == 0) {
+                $q = NULL;
+                $id = 'ID';
+                $name = 'post_title';
+                switch ($query) {
+                    case TCM_QUERY_POSTS_OF_TYPE:
+                        $options = array('posts_per_page' => -1, 'post_type' => $args['post_type']);
+                        $q = get_posts($options);
+                        break;
+                }
+
+                $result = array();
+                if ($q) {
+                    foreach ($q as $v) {
+                        $result[] = array('id' => $v->$id, 'name' => $v->$name);
+                    }
+                } elseif ($query == TCM_QUERY_POST_TYPES) {
+                    $q = array('post', 'page');
+                    sort($q);
+                    foreach ($q as $v) {
+                        $result[] = array('id' => $v, 'name' => $v);
+                    }
+                }
+
+                $tcm->Options->setCache('Query', $query . '_' . $args['post_type'], $result);
             }
 
-            $result = array();
-            if ($q) {
-                foreach ($q as $v) {
-                    $result[] = array('id' => $v->$id, 'name' => $v->$name);
-                }
-            } elseif ($query == TCM_QUERY_POST_TYPES) {
-                $q=array('post', 'page');
-                sort($q);
-                foreach ($q as $v) {
-                    $result[] = array('id' => $v, 'name' => $v);
-                }
+            if ($args['all']) {
+                $first = array();
+                $first[] = array('id' => -1, 'name' => '[' . $tcm->Lang->L('All') . ']');
+                $result = array_merge($first, $result);
             }
-
-            $tcm->Options->setCache('Query', $query . '_' . $args['post_type'], $result);
-        }
-
-        if ($args['all']) {
-            $first = array();
-            $first[] = array('id' => -1, 'name' => '[' . $tcm->Lang->L('All') . ']');
-            $result = array_merge($first, $result);
         }
 
         return $result;
@@ -213,5 +225,8 @@ class TCM_Utils {
         }
         ?>
         <script> window.location.replace('<?php echo $location?>'); </script>
+        <?php
+        exit();
+        ?>
     <?php }
 }

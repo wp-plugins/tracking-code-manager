@@ -84,3 +84,36 @@
     clear:both;
     margin-bottom:5px;
 }
+
+.tcm-box-error {
+    background: #fff;
+    border-left: 4px solid #dd3d36;
+    margin: 5px 0 15px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    padding: 1px 12px;
+}
+.tcm-box-warning {
+    background: #fff;
+    border-left: 4px solid #ffba00;
+    margin: 5px 0 15px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    padding: 1px 12px;
+}
+.tcm-box-success {
+    background: #fff;
+    border-left: 4px solid #7ad03a;
+    margin: 5px 0 15px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    padding: 1px 12px;
+}
+.tcm-box-info {
+    background: #fff;
+    border-left: 4px solid #00a0d2;
+    margin: 5px 0 15px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    padding: 1px 12px;
+}

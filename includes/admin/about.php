@@ -23,7 +23,7 @@ function tcm_ui_about() {
         </li>
         <li>
             <img style="float:left; margin-right:10px;" src="<?php echo TCM_PLUGIN_IMAGES?>internet.png" />
-            <a href="http://www.intellywp.com" target="_new">IntellyWP.com</a>
+            <a href="http://intellywp.com/?utm_source=free-users&utm_medium=tcm-about&utm_campaign=TCM" target="_new">IntellyWP.com</a>
         </li>
     </ul>
     <?php

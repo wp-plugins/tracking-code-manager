@@ -14,38 +14,63 @@ class TCM_Form {
     var $newline;
 
     var $leftTags=FALSE;
+    var $tagNew=FALSE;
+    var $tags=TRUE;
 
     public function __construct() {
     }
 
     //args can be a string or an associative array if you want
-    private function parseArgs($args, $defaults) {
+    private function getTextArgs($args, $defaults, $excludes=array()) {
         $result=$args;
         if(is_array($result) && count($result)>0) {
             $result='';
             foreach($args as $k=>$v) {
-                $result.=' '.$k.'="'.$v.'"';
+                if(count($excludes)==0 || !in_array($k, $excludes)) {
+                    $result.=' '.$k.'="'.$v.'"';
+                }
             }
         } elseif(!$args) {
             $result='';
         }
         if(is_array($defaults) && count($defaults)>0) {
             foreach($defaults as $k=>$v) {
-                if(stripos($result, $k.'=')===FALSE) {
-                    $result.=' '.$k.'="'.$v.'"';
+                if(count($excludes)==0 || !in_array($k, $excludes)) {
+                    if(stripos($result, $k.'=')===FALSE) {
+                        $result.=' '.$k.'="'.$v.'"';
+                    }
                 }
             }
         }
         return $result;
     }
 
+    public function tag() {
+        if(!$this->tags || !$this->tagNew) {
+            return;
+        }
+
+        $tagClass='tcm-tag-free';
+        $tagText='NEW!';
+        ?>
+        <div style="float:left;" class="tcm-tag <?php echo $tagClass?>"><?php echo $tagText?></div>
+    <?php
+    }
+
     public function label($name, $args='') {
         global $tcm;
         $defaults=array('class'=>'');
-        $other=$this->parseArgs($args, $defaults);
+        $otherText=$this->getTextArgs($args, $defaults, array('label', 'id'));
 
         $k=$this->prefix.'.'.$name;
+        if(!is_array($args)) {
+            $args=array();
+        }
+        if(isset($args['label']) && $args['label']) {
+            $k=$args['label'];
+        }
         $label=$tcm->Lang->L($k);
+        $for=(isset($args['id']) ? $args['id'] : $name);
 
         //check if is a mandatory field by checking the .txt language file
         $k=$this->prefix.'.'.$name.'.check';
@@ -55,8 +80,14 @@ class TCM_Form {
 
         $aClass='';
         ?>
-        <label for="<?php echo $name?>" <?php echo $other?> >
+        <label for="<?php echo $for?>" <?php echo $otherText?> >
+            <?php if($this->leftTags) {
+                $this->tag();
+            }?>
             <span style="float:left; margin-right:5px;" class="<?php echo $aClass?>"><?php echo $label?></span>
+            <?php if(!$this->leftTags) {
+                $this->tag();
+            }?>
         </label>
     <?php }
 
@@ -86,7 +117,7 @@ class TCM_Form {
     public function formStarts($method='post', $action='', $args=NULL) {
         //$defaults=array('style'=>'margin:1em 0; padding:1px 1em; background:#fff; border:1px solid #ccc;'
         $defaults=array('class'=>'tcm-form');
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
         ?>
         <form method="<?php echo $method?>" action="<?php echo $action?>" <?php echo $other?> >
     <?php }
@@ -97,7 +128,7 @@ class TCM_Form {
 
     public function divStarts($args=array()) {
         $defaults=array();
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
         ?>
         <div <?php echo $other?>>
     <?php }
@@ -126,7 +157,7 @@ class TCM_Form {
             $value=$value[$name];
         }
         $defaults=array('rows'=>10, 'class'=>'tcm-textarea');
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
 
         $args=array('class'=>'tcm-label', 'style'=>'width:auto;');
         $this->newline=TRUE;
@@ -143,7 +174,7 @@ class TCM_Form {
             $value=$value[$name];
         }
         $defaults=array('class'=>'tcm-text');
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
 
         $args=array('class'=>'tcm-label');
         $this->leftInput($name, $args);
@@ -158,7 +189,7 @@ class TCM_Form {
             $value=$value[$name];
         }
         $defaults=array();
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
         ?>
         <input type="hidden" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo $value ?>" <?php echo $other?> />
     <?php }
@@ -173,7 +204,7 @@ class TCM_Form {
             $value=$value[$name];
         }
         $defaults=array('class'=>'tcm-select tcmTags');
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
 
         if(!is_array($value)) {
             $value=array($value);
@@ -210,10 +241,14 @@ class TCM_Form {
         $this->rightInput($name, $args);
     }
 
+    public function br() { ?>
+        <br/>
+    <?php }
+
     public function submit($value='', $args=NULL) {
         global $tcm;
         $defaults=array();
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
         if($value=='') {
             $value='Send';
         }
@@ -225,27 +260,58 @@ class TCM_Form {
     public function delete($id, $action='delete', $args=NULL) {
         global $tcm;
         $defaults=array();
-        $other=$this->parseArgs($args, $defaults);
+        $other=$this->getTextArgs($args, $defaults);
         ?>
             <input type="button" class="button tcm-button" value="<?php $tcm->Lang->P('Delete?')?>" onclick="if (confirm('<?php $tcm->Lang->P('Question.DeleteQuestion')?>') ) window.location='<?php echo TCM_TAB_MANAGER_URI?>&action=<?php echo $action?>&id=<?php echo $id ?>&amp;tcm_nonce=<?php echo esc_attr(wp_create_nonce('tcm_delete')); ?>';" <?php echo $other?> />
             &nbsp;
         <?php
     }
 
+    public function radio($name, $current=1, $value=1, $args=NULL) {
+        if(!is_array($args)) {
+            $args=array();
+        }
+        $args['radio']=TRUE;
+        $args['id']=$name.'_'.$value;
+        return $this->checkbox($name, $current, $value, $args);
+    }
     public function checkbox($name, $current=1, $value=1, $args=NULL) {
         global $tcm;
         if(is_array($current) && isset($current[$name])) {
             $current=$current[$name];
         }
-        $defaults=array('class'=>'tcm-checkbox', 'style'=>'margin:0px; margin-right:4px;');
-        $other=$this->parseArgs($args, $defaults);
+
+        if(!is_array($args)) {
+            $args=array();
+        }
+
+        $label=$name;
+        $type='checkbox';
+        if(isset($args['radio']) && $args['radio']) {
+            $type='radio';
+            $label.='_'.$value;
+        }
+
+        $defaults=array(
+            'class'=>'tcm-checkbox'
+            , 'style'=>'margin:0px; margin-right:4px;'
+            , 'id'=>$name
+        );
+        $other=$this->getTextArgs($args, $defaults, array('radio', 'label'));
         $prev=$this->leftLabels;
         $this->leftLabels=FALSE;
 
-        $args=array('class'=>'', 'style'=>'margin-top:-1px;');
+        $label=(isset($args['label']) ? $args['label'] : $this->prefix.'.'.$label);
+        $id=(isset($args['id']) ? $args['id'] : $name);
+        $args=array(
+            'class'=>''
+            , 'style'=>'margin-top:-1px;'
+            , 'label'=>$label
+            , 'id'=>$id
+        );
         $this->leftInput($name, $args);
         ?>
-            <input type="checkbox" id="<?php echo $name ?>" name="<?php echo $name?>" value="<?php echo $value?>" <?php echo($current!='' && $current==$value ? 'checked' : '') ?> <?php echo $other?> >
+            <input type="<?php echo $type ?>" name="<?php echo $name?>" value="<?php echo $value?>" <?php echo($current==$value ? 'checked="checked"' : '') ?> <?php echo $other?> >
     <?php
         $this->rightInput($name, $args);
         $this->leftLabels=$prev;
@@ -271,14 +337,17 @@ class TCM_Form {
     <?php }
 
     //create a checkbox with a left select visible only when the checkbox is selected
-    public function checkSelect($nameActive, $nameArray, $value, $values) {
+    public function checkSelect($nameActive, $nameArray, $value, $values, $args=NULL) {
         global $tcm;
         ?>
         <div id="<?php echo $nameArray?>Box" style="float:left;">
             <?php
-            $args=array('class'=>'tcm-hideShow tcm-checkbox'
+            $defaults=array(
+                'class'=>'tcm-hideShow tcm-checkbox'
                 , 'tcm-hideIfTrue'=>'false'
-                , 'tcm-hideShow'=>$nameArray.'Tags');
+                , 'tcm-hideShow'=>$nameArray.'Tags'
+            );
+            $args=$tcm->Utils->parseArgs($args, $defaults);
             $this->checkbox($nameActive, $value, 1, $args);
             if(TRUE) { ?>
                 <div id="<?php echo $nameArray?>Tags" style="float:left;">

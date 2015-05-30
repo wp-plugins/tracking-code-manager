@@ -88,6 +88,27 @@ class TCM_Options {
         $_POST[$key]=$value;
     }
 
+    public function isPluginFirstInstall() {
+        return $this->getOption('PluginFirstInstall', FALSE);
+    }
+    public function setPluginFirstInstall($value) {
+        $this->setOption('PluginFirstInstall', $value);
+    }
+    public function isShowActivationNotice() {
+        return $this->getOption('ShowActivationNotice', FALSE);
+    }
+    public function setShowActivationNotice($value) {
+        $this->setOption('ShowActivationNotice', $value);
+    }
+
+    //ShowWhatsNew
+    public function isShowWhatsNew() {
+        return $this->getOption('ShowWhatsNew', TRUE);
+    }
+    public function setShowWhatsNew($value) {
+        $this->setOption('ShowWhatsNew', $value);
+    }
+
     //TrackingEnable
     public function isTrackingEnable() {
         return $this->getOption('TrackingEnable', 0);
@@ -151,6 +172,24 @@ class TCM_Options {
         $this->removeOption('SnippetList');
     }
 
+    public function pushConversionSnippets($options) {
+        global $tcm;
+        $snippets=$tcm->Manager->getConversionSnippets($options);
+        foreach($snippets as $v) {
+            $id=$v['id'];
+            $tcm->Options->pushConversionSnippetId($id);
+        }
+    }
+    public function pushConversionSnippetId($id) {
+        $array=$this->getRequest('ConversionSnippetIds', array());
+        $array[]=$id;
+        $array=array_unique($array);
+        $this->setRequest('ConversionSnippetIds', $array);
+    }
+    public function getConversionSnippetIds() {
+        return $this->getRequest('ConversionSnippetIds', array());
+    }
+
     public function hasSnippetWritten($snippet) {
         //check also the md5 of code so if the user create 2 different snippets with
         //the same tracking code we will not insert into 2 times inside the html
@@ -197,59 +236,86 @@ class TCM_Options {
         $this->setRequest('Cache_'.$name.'_'.$id, $value);
     }
 
-    //ErrorMessages
-    public function hasErrorMessages() {
-        $result=$this->getRequest('ErrorMessages', NULL);
+    private function hasGenericMessages($type) {
+        $result=$this->getRequest($type.'Messages', NULL);
         return (is_array($result) && count($result)>0);
     }
-    public function pushErrorMessage($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
+    private function pushGenericMessage($type, $message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
         global $tcm;
-        $array=$this->getRequest('ErrorMessages', array());
+        $array=$this->getRequest($type.'Messages', array());
         $array[]=$tcm->Lang->L($message, $v1, $v2, $v3, $v4, $v5);
-        $this->setRequest('ErrorMessages', $array);
+        $this->setRequest($type.'Messages', $array);
     }
-    public function writeErrorMessages($clean=TRUE) {
-        global $tcm;
+    private function writeGenericMessages($type, $clean=TRUE) {
         $result=FALSE;
-        $array=$this->getRequest('ErrorMessages', array());
+        $array=$this->getRequest($type.'Messages', array());
         if(is_array($array) && count($array)>0) {
             $result=TRUE;
             ?>
-            <div class="message error"><?php echo wpautop(implode("\n", $array)); ?></div>
+            <div class="tcm-box-<?php echo strtolower($type)?>"><?php echo wpautop(implode("\n", $array)); ?></div>
         <?php }
         if($clean) {
-            $this->removeRequest('ErrorMessages');
+            $this->removeRequest($type.'Messages');
         }
         return $result;
+    }
+
+    //WarningMessages
+    public function hasWarningMessages() {
+        return $this->hasGenericMessages('Warning');
+    }
+    public function pushWarningMessage($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
+        return $this->pushGenericMessage('Warning', $message, $v1, $v2, $v3, $v4, $v5);
+    }
+    public function writeWarningMessages($clean=TRUE) {
+        return $this->writeGenericMessages('Warning', $clean);
     }
     //SuccessMessages
     public function hasSuccessMessages() {
-        $result=$this->getRequest('SuccessMessages', NULL);
-        return (is_array($result) && count($result)>0);
+        return $this->hasGenericMessages('Success');
     }
     public function pushSuccessMessage($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
-        global $tcm;
-        $array=$this->getRequest('SuccessMessages', array());
-        $array[]=$tcm->Lang->L($message, $v1, $v2, $v3, $v4, $v5);
-        $this->setRequest('SuccessMessages', $array);
+        return $this->pushGenericMessage('Success', $message, $v1, $v2, $v3, $v4, $v5);
     }
     public function writeSuccessMessages($clean=TRUE) {
-        $result=FALSE;
-        $array=$this->getRequest('SuccessMessages', array());
-        if(is_array($array) && count($array)>0) {
-            $result=TRUE;
-            ?>
-            <div class="message updated"><?php echo wpautop(implode("\n", $array)); ?></div>
-        <?php }
-        if($clean) {
-            $this->removeRequest('SuccessMessages');
-        }
-        return $result;
+        return $this->writeGenericMessages('Success', $clean);
     }
+    //InfoMessages
+    public function hasInfoMessages() {
+        return $this->hasGenericMessages('Info');
+    }
+    public function pushInfoMessage($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
+        return $this->pushGenericMessage('Info', $message, $v1, $v2, $v3, $v4, $v5);
+    }
+    public function writeInfoMessages($clean=TRUE) {
+        return $this->writeGenericMessages('Info', $clean);
+    }
+    //ErrorMessages
+    public function hasErrorMessages() {
+        return $this->hasGenericMessages('Error');
+    }
+    public function pushErrorMessage($message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {
+        return $this->pushGenericMessage('Error', $message, $v1, $v2, $v3, $v4, $v5);
+    }
+    public function writeErrorMessages($clean=TRUE) {
+        return $this->writeGenericMessages('Error', $clean);
+    }
+
     public function writeMessages($clean=TRUE) {
         $result=FALSE;
-        $result=$result || $this->writeErrorMessages($clean);
-        $result=$result || $this->writeSuccessMessages($clean);
+        if($this->writeInfoMessages($clean)) {
+            $result=TRUE;
+        }
+        if($this->writeSuccessMessages($clean)) {
+            $result=TRUE;
+        }
+        if($this->writeWarningMessages($clean)) {
+            $result=TRUE;
+        }
+        if($this->writeErrorMessages($clean)) {
+            $result=TRUE;
+        }
+
         return $result;
     }
     public function pushMessage($success, $message, $v1=NULL, $v2=NULL, $v3=NULL, $v4=NULL, $v5=NULL) {

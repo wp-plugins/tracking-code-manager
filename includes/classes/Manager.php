@@ -3,10 +3,13 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+define('TCM_TRACK_MODE_CODE', 0);
+//others track mode are plugin enumeration
+define('TCM_TRACK_PAGE_ALL', 0);
+define('TCM_TRACK_PAGE_SPECIFIC', 1);
+
 class TCM_Manager {
-
     public function __construct() {
-
     }
 
     public function exists($name) {
@@ -19,7 +22,6 @@ class TCM_Manager {
         return $result;
     }
 
-    //get a code snippet
     public function get($id, $new = FALSE) {
         global $tcm;
 
@@ -27,23 +29,30 @@ class TCM_Manager {
         if (!$snippet && $new) {
             $snippet=array();
             $snippet['active']=1;
-            $snippet['includeEverywhereActive']=1;
+            $snippet['trackMode']=-1;
+            $snippet['trackPage']=-1;
         }
 
         $snippet=$this->sanitize($id, $snippet);
         return $snippet;
     }
 
-    private function sanitize($id, $snippet) {
+    public function sanitize($id, $snippet) {
         global $tcm;
         if($snippet==NULL || !is_array($snippet)) return;
 
+        $page=0;
+        if(isset($snippet['includeEverywhereActive'])) {
+            $page=(intval($snippet['includeEverywhereActive']==1) ? 0 : 1);
+        }
         $defaults=array(
             'id'=>$id
             , 'active'=>0
             , 'name'=>''
             , 'code'=>''
             , 'position'=>TCM_POSITION_HEAD
+            , 'trackMode'=>TCM_TRACK_MODE_CODE
+            , 'trackPage'=>$page
             , 'includeEverywhereActive'=>0
         );
 
@@ -53,6 +62,15 @@ class TCM_Manager {
             $defaults['includePostsOfType_'.$v['name']]=array();
             $defaults['exceptPostsOfType_'.$v['name'].'_Active']=0;
             $defaults['exceptPostsOfType_'.$v['name']]=array();
+        }
+
+        $types=$tcm->Utils->query(TCM_QUERY_CONVERSION_PLUGINS);
+        foreach($types as $v) {
+            //CP stands for ConversionTrackingCode
+            //$defaults['CTC_'.$v['id'].'_Active']=0;
+            $defaults['CTC_'.$v['id'].'_ProductsIds']=array();
+            $defaults['CTC_'.$v['id'].'_CategoriesIds']=array();
+            $defaults['CTC_'.$v['id'].'_TagsIds']=array();
         }
         $snippet=$tcm->Utils->parseArgs($snippet, $defaults);
         //$snippet['includeLastPosts'] = intval($snippet['includeLastPosts']);
@@ -78,6 +96,21 @@ class TCM_Manager {
         }
         $snippet['code']=trim($snippet['code']);
         $snippet['position']=intval($snippet['position']);
+        if($snippet['trackMode']==='') {
+            $snippet['trackMode']=TCM_TRACK_MODE_CODE;
+        } else {
+            $snippet['trackMode']=intval($snippet['trackMode']);
+        }
+        if($snippet['trackPage']==='') {
+            $snippet['trackPage']=$page;
+        } else {
+            $snippet['trackPage']=intval($snippet['trackPage']);
+        }
+
+        $snippet['includeEverywhereActive']=0;
+        if($snippet['trackPage']==TCM_TRACK_PAGE_ALL) {
+            $snippet['includeEverywhereActive']=1;
+        }
 
         $code=strtolower($snippet['code']);
         $cnt=substr_count($code, '<iframe')+substr_count($code, '<script');
@@ -176,6 +209,9 @@ class TCM_Manager {
             case TCM_POSITION_FOOTER:
                 $text='FOOTER';
                 break;
+            case TCM_POSITION_CONVERSION:
+                $text='CONVERSION';
+                break;
         }
 
         $post=$tcm->Options->getPostShown();
@@ -190,12 +226,66 @@ class TCM_Manager {
         }
     }
 
+    //return snippets that match with options
+    public function getConversionSnippets($options=NULL) {
+        global $tcm;
+
+        $defaults=array(
+            'pluginId'=>0
+            , 'categoriesIds'=>array()
+            , 'productsIds'=>array()
+            , 'tagsIds'=>array()
+        );
+        $options=$tcm->Utils->parseArgs($options, $defaults);
+
+        $result=array();
+        $pluginId=intval($options['pluginId']);
+        $ids=$this->keys();
+
+        foreach($ids as $id) {
+            $snippet=$this->get($id);
+            if($snippet && $snippet['trackMode']>0 && $snippet['trackMode']==$pluginId) {
+                $match=FALSE;
+
+                $match=($match || $this->matchConversion($snippet, $pluginId, 'ProductsIds', $options['productsIds']));
+                $match=($match || $this->matchConversion($snippet, $pluginId, 'CategoriesIds', $options['categoriesIds']));
+                $match=($match || $this->matchConversion($snippet, $pluginId, 'TagsIds', $options['tagsIds']));
+                if(!$match) {
+                    //no selected so..all match! :)
+                    if(count($snippet['CTC_'.$pluginId.'_ProductsIds'])==0
+                        && count($snippet['CTC_'.$pluginId.'_CategoriesIds'])==0
+                        && count($snippet['CTC_'.$pluginId.'_TagsIds'])==0) {
+                        $match=TRUE;
+                    }
+                }
+
+                if($match) {
+                    $result[]=$snippet;
+                }
+            }
+        }
+        return $result;
+    }
+    private function matchConversion($snippet, $pluginId, $suffix, $array) {
+        global $tcm;
+
+        $v='CTC_'.$pluginId.'_'.$suffix;
+        if(isset($snippet[$v])) {
+            $v=$snippet[$v];
+        } else {
+            $v=array();
+        }
+
+        $result=$tcm->Utils->inArray($array, $v);
+        return $result;
+    }
+
     //from a post retrieve the html code that is needed to insert into the page code
     public function getCodes($position, $post, $args=array()) {
         global $tcm;
 
         $defaults=array('field'=>'code');
-        $args=wp_parse_args($args, $defaults);
+        $args=$tcm->Utils->parseArgs($args, $defaults);
 
         $postId=0;
         $postType='page';
@@ -207,35 +297,49 @@ class TCM_Manager {
         }
 
         $tcm->Options->clearSnippetsWritten();
-        $keys=$this->keys();
-        foreach ($keys as $id) {
-            $v=$this->get($id);
-            if(!$v || ($position>-1 && $v['position']!=$position) || $v['code']=='' || !$v['active']) {
-                continue;
-            }
-            if($tcm->Options->hasSnippetWritten($v)) {
-                $tcm->Logger->debug('SKIPPED SNIPPET=%s[%s] DUE TO ALREADY WRITTEN', $v['id'], $v['name']);
-                continue;
-            }
-
-            $match=FALSE;
-            if(!$match && $v['includeEverywhereActive']) {
-                $tcm->Logger->debug('INCLUDED SNIPPET=%s[%s] DUE TO EVERYWHERE', $v['id'], $v['name']);
-                $match=TRUE;
-            }
-            if(!$match && $postId>0 && $this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'include', $v)) {
-                $match=TRUE;
-            }
-
-            if($match && $postId>0) {
-                if($this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'except', $v)) {
-                    $tcm->Logger->debug('FOUND AT LEAST ON EXCEPT TO EXCLUDE SNIPPET=%s [%s]', $v['id'], $v['name']);
-                    $match=FALSE;
+        if($position==TCM_POSITION_CONVERSION) {
+            //write snippets previously appended
+            $ids=$tcm->Options->getConversionSnippetIds();
+            foreach($ids as $id) {
+                $snippet=$tcm->Manager->get($id);
+                if($snippet) {
+                    $tcm->Options->pushSnippetWritten($snippet);
                 }
             }
+        } else {
+            $keys = $this->keys();
+            foreach ($keys as $id) {
+                $v = $this->get($id);
+                if (!$v || ($position > -1 && $v['position'] != $position) || $v['code'] == '' || !$v['active']) {
+                    continue;
+                }
+                if ($v['trackMode']!=TCM_TRACK_MODE_CODE) {
+                    continue;
+                }
+                if ($tcm->Options->hasSnippetWritten($v)) {
+                    $tcm->Logger->debug('SKIPPED SNIPPET=%s[%s] DUE TO ALREADY WRITTEN', $v['id'], $v['name']);
+                    continue;
+                }
 
-            if ($match) {
-                $tcm->Options->pushSnippetWritten($v);
+                $match = FALSE;
+                if (!$match && ($v['trackPage']==TCM_TRACK_PAGE_ALL || $v['includeEverywhereActive'])) {
+                    $tcm->Logger->debug('INCLUDED SNIPPET=%s[%s] DUE TO EVERYWHERE', $v['id'], $v['name']);
+                    $match = TRUE;
+                }
+                if (!$match && $postId > 0 && $this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'include', $v)) {
+                    $match = TRUE;
+                }
+
+                if ($match && $postId > 0) {
+                    if ($this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'except', $v)) {
+                        $tcm->Logger->debug('FOUND AT LEAST ON EXCEPT TO EXCLUDE SNIPPET=%s [%s]', $v['id'], $v['name']);
+                        $match = FALSE;
+                    }
+                }
+
+                if ($match) {
+                    $tcm->Options->pushSnippetWritten($v);
+                }
             }
         }
 

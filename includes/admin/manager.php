@@ -37,12 +37,19 @@ function tcm_ui_free_notice() {
         $tcm->Options->pushErrorMessage('FreeLicenseReached');
     } elseif($tcm->Manager->count()>0) {
         $tcm->Options->pushSuccessMessage('PluginLimit.Line1', 6, $tcm->Manager->rc());
-        $tcm->Options->pushSuccessMessage('PluginLimit.Line2', TCM_PAGE_PREMIUM);
+        $url='http://intellywp.com/tracking-code-manager/?utm_source=free-users&utm_medium=tcm-banner&utm_campaign=TCM';
+        $tcm->Options->pushSuccessMessage('PluginLimit.Line2', $url);
     }
     $tcm->Options->writeMessages();
 }
 function tcm_ui_manager() {
     global $tcm;
+
+    if($tcm->Plugin->isActive(TCM_PLUGINS_TRACKING_CODE_MANAGER_PRO)) {
+        $tcm->Options->pushErrorMessage('YouHaveThePremiumVersion', TCMP_TAB_MANAGER_URI);
+        $tcm->Options->writeMessages();
+        return;
+    }
 
     $id=intval($tcm->Utils->qs('id', 0));
     if ($tcm->Utils->is('action', 'delete') && $id>0 && wp_verify_nonce($tcm->Utils->qs('tcm_nonce'), 'tcm_delete')) {
@@ -77,13 +84,16 @@ function tcm_ui_manager() {
     $snippets=$tcm->Manager->values();
     if (count($snippets)>0) { ?>
         <div style="float:left;">
-            <form method="get" action="" style="margin:5px;" class="alignright">
+            <form method="get" style="margin:5px; float:left;" action="<?php echo TCM_PAGE_PREMIUM?>">
+                <input type="hidden" name="utm_source" value="free-users" />
+                <input type="hidden" name="utm_medium" value="tcm-manager" />
+                <input type="hidden" name="utm_campaign" value="TCM" />
+                <input type="submit" class="button" value="<?php $tcm->Lang->P('Button.BuyPRO')?>" />
+            </form>
+            <form method="get" action="" style="margin:5px; float:left;">
                 <input type="hidden" name="page" value="<?php echo TCM_PLUGIN_NAME?>" />
                 <input type="hidden" name="tab" value="<?php echo TCM_TAB_EDITOR?>" />
                 <input type="submit" class="button-primary" value="<?php $tcm->Lang->P('Button.Add')?>" />
-            </form>
-            <form method="get" style="margin:5px;" class="alignright" action="<?php echo TCM_PAGE_PREMIUM?>">
-                <input type="submit" class="button" value="<?php $tcm->Lang->P('Button.BuyPRO')?>" />
             </form>
         </div>
         <div style="clear:both;"></div>
@@ -93,13 +103,14 @@ function tcm_ui_manager() {
                 font-weight: bold!important;
             }
         </style>
-        <table class="widefat fixed" style="width:850px;">
+        <table class="widefat fixed" style="width:auto;">
             <thead>
                 <tr>
                     <th>#N</th>
                     <th><?php $tcm->Lang->P('Name')?></th>
                     <th><?php $tcm->Lang->P('Position')?></th>
                     <th style="text-align:center;"><?php $tcm->Lang->P('Active?')?></th>
+                    <th><?php $tcm->Lang->P('Where?')?></th>
                     <th style="text-align:center;"><?php $tcm->Lang->P('Each pages?')?></th>
                     <?php /*<th style="text-align:center;"><?php $tcm->Lang->P('Count')?></th> */?>
                     <th style="text-align:center;"><?php $tcm->Lang->P('Actions')?></th>
@@ -129,9 +140,20 @@ function tcm_ui_manager() {
                             <?php echo $text?>
                         </a>
                     </td>
+                    <td>
+                        <?php
+                        $text='Standard';
+                        if($snippet['trackMode']!=TCM_TRACK_MODE_CODE) {
+                            $text=$tcm->Plugin->getName($snippet['trackMode']);
+                        }
+                        $tcm->Lang->P($text);
+                        ?>
+                    </td>
                     <?php
                     $hide=!$snippet['active'];
-                    tcm_ui_manager_column($snippet['includeEverywhereActive'], NULL, $hide);
+                    $active=($snippet['trackMode']==TCM_TRACK_MODE_CODE
+                        && $snippet['trackPage']==TCM_TRACK_PAGE_ALL);
+                    tcm_ui_manager_column($active, NULL, $hide);
                     ?>
                     <?php /*<td style="text-align:center;"><?php echo $snippet['codesCount']?></td> */?>
                     <td style="text-align:center;">
@@ -151,5 +173,6 @@ function tcm_ui_manager() {
         </table>
     <?php } else { ?>
         <h2><?php $tcm->Lang->P('EmptyTrackingList', TCM_TAB_EDITOR_URI)?></h2>
-    <?php } ?>
-<?php }
+    <?php }
+    tcm_notice_pro_features();
+}

@@ -35,11 +35,13 @@ function tcm_ui_feedback() {
     $tcm->Options->writeMessages();
 
     $tcm->Form->formStarts();
-    $tcm->Form->text('email', $tcm->Options->getFeedbackEmail());
-    $tcm->Form->textarea('body', '', array('rows'=>5));
-    $tcm->Form->checkbox('track');
+    {
+        $tcm->Form->text('email', $tcm->Options->getFeedbackEmail());
+        $tcm->Form->textarea('body', '', array('rows'=>5));
+        $tcm->Form->checkbox('track');
 
-    $tcm->Form->nonce('tcm_feedback', 'tcm_feedback');
-    $tcm->Form->submit('Send');
+        $tcm->Form->nonce('tcm_feedback', 'tcm_feedback');
+        $tcm->Form->submit('Send');
+    }
     $tcm->Form->formEnds();
 }

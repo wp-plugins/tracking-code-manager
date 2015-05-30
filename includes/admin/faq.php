@@ -14,4 +14,20 @@ function tcm_ui_faq() {
         <?php
         ++$i;
     }
+    ?>
+    <h2><?php $tcm->Lang->P('YouTubeVideo.Title') ?></h2>
+    <?php
+    $i=1;
+    while($tcm->Lang->H('YouTubeVideo.URL'.$i)) {
+        $q=$tcm->Lang->L('YouTubeVideo.URL'.$i);
+        $r=$tcm->Lang->L('YouTubeVideo.Description'.$i);
+        ?>
+        <p>
+            <iframe width="350" height="210" src="https://www.youtube.com/embed/<?php echo $q?>"></iframe>
+            <br/>
+            <?php echo $r?>
+        </p>
+        <?php
+        ++$i;
+    }
 }

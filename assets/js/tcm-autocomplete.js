@@ -10,8 +10,10 @@ jQuery(function() {
 
     //var options={multiple:true, multipleSep: ","};
     //jQuery("[name=optionPosts]").suggest(url, options);
-
     jQuery(".tcm-hideShow").click(function() {
+        tcm_hideShow(this);
+    });
+    jQuery(".tcm-hideShow").change(function() {
         tcm_hideShow(this);
     });
     jQuery(".tcm-hideShow").each(function() {
@@ -27,6 +29,9 @@ jQuery(function() {
                 $destination=jQuery('#'+$source.attr('tcm-hideShow'));
             }
             if($destination.length>0) {
+                if($source.is(':radio')) {
+                    //mmmh
+                }
                 var isChecked=$source.is(":checked");
                 var hideIfTrue=($source.attr('tcm-hideIfTrue').toLowerCase()=='true');
 

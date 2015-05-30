@@ -1,12 +1,11 @@
 === Tracking Code Manager ===
 Contributors: IntellyWP
 Donate link: http://intellywp.com/tracking-code-manager/
-Tags: remarketing, retargeting, tracking code, facebook retargeting, adwords remarketing, conversion tracking, facebook conversion pixel, facebook custom audience, conversion pixel, conversion tracking pixel, conversion tracking adwords, tracking codes, trackingcode, analytics conversion tracking, track conversion, google adwords, facebook ads, pixel tracking code, tracking script, track conversions, conversion pixel tracking, html tracking, conversion tracking tool, html tracking code, google analytics web tracking code, pay per click tracking, conversion tracking script, snippets, google tag manager, tag management, html snippet, html snippets, js snippets, javascript snippet, javascript snippets
+Tags: adwords remarketing,analytics conversion tracking,conversion pixel,conversion tracking,conversion tracking adwords,conversion tracking pixel,conversion tracking script,Facebook Ads,facebook conversion pixel,facebook custom audience,facebook retargeting,google adwords,google analytics web tracking code,google tag manager,html snippet,html snippets,html tracking code,javascript snippet,javascript snippets,js snippets,pay per click tracking,pixel tracking code,remarketing,retargeting,snippets,Tag Management,track conversion,track conversions,tracking code,tracking codes,tracking script,woocommerce,edd,easy digital downloads,wp ecommerce,wp e-commerce
 Requires at least: 2.7
 Tested up to: 4.2.2
 
-A plugin to manage ALL your tracking code and conversion pixels, simply.
-Compatible with Facebook Ads, Google Adwords and ALL kind of Saas tool.
+A plugin to manage ALL your tracking code and conversion pixels, simply. Compatible with Facebook Ads, Google Adwords, WooCommerce, Easy Digital Downloads, WP eCommerce.
 
 == Description ==
 
@@ -20,14 +19,15 @@ For every single service you use, you’ll have to put a script or a tracking pi
 
 Tracking Code Manager plugin allows you to gather EVERY code and snippet displaying them exactly where you want, whether in the whole site or in specific pages and posts.
 
-> <strong>Bug Reports</strong><br>
-> Feel free to reach us by email for any problem you have with our plugins.
-> Describe the steps to reproduce the bug and we will be happy to help!<br>
-> To report a bug use the form at http://intellywp.com/report-a-bug/
+> <strong>TRACK CONVERSION ON YOUR E-COMMERCE PLUGIN</strong><br>
+> When it comes to track conversions on a wordpress page it’s easy… but if it’s a "dynamic thank you page" is a big problem.<br>
+> Tracking Code Manager plugin DETECT AUTOMATICALLY your e-commerce plugin (WooCommerce, Easy Digital Downloads or WP Ecommerce) and let you put the conversion pixels every time someone completes a sale on your store.<br>
+> In addition you also have the ability to track a single product at time ;)<br>
+> <a href="https://wordpress.org/plugins/tracking-code-manager/screenshots/">Check some screenshots here.</a>
 
 = THE REAL PROBLEM =
 
-We are living in the Saas era, where online services manage all kind of software, analysis and advanced tools. Since every one of them needs a script or a tracking code, why don’t we take it easy with the fast Tracking Code Manager plugin?
+We are living in the SaaS era, where online services manage all kind of software, analysis and advanced tools. Since every one of them needs a script or a tracking code, why don’t we take it easy with the fast Tracking Code Manager plugin?
 
 = FORGET THE UPDATING PROBLEM =
 
@@ -36,6 +36,8 @@ Putting the tracking code directly in the theme files, you risk to lose importan
 With Tracking Code Manager you can forget about this problem also if you will change your theme in the future.
 
 [youtube https://www.youtube.com/watch?v=shJG7Vf1nMg]
+
+[youtube https://www.youtube.com/watch?v=TDgoefbdtSI]
 
 > <strong>Premium version</strong><br>
 > If you need more advanced feature you can also try our PREMIUM version available in the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/). This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
@@ -51,9 +53,14 @@ You can also click on this link [http://intellywp.com/tracking-code-manager/](ht
 
 == Frequently Asked Questions ==
 
+> <strong>Bug Reports</strong><br>
+> Feel free to reach us by email for any problem you have with our plugins.
+> Describe the steps to reproduce the bug and we will be happy to help!<br>
+> To report a bug use the form at http://intellywp.com/report-a-bug/
+
 = Do you have a video that show me the plugin working? =
 
-Sure! Click on the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/) for a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
+Sure! Click on the link [http://intellywp.com/tracking-code-manager/?utm_source=wordpress-org&utm_medium=plugin-page&utm_campaign=TCM ](http://intellywp.com/tracking-code-manager/) for a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
 = Will this plugin slow my website? =
 
@@ -75,9 +82,13 @@ Yes! For example you can put Facebook Pixel inside a certain posts of your blog 
 
 Nope! We tested the most famous Google Analytics plugins and it will not brake any of them.
 
-= How can I be sure that you Tracking Code Manager insert properly my scripts? =
+= Can I use unlimited tracking codes and conversion pixels? =
 
-You can see in the source code of your page looking for "TRACKING CODE MANAGER" or you can install some Addon of your browser to check that your scripts are properly inserted. We suggest <a href="https://chrome.google.com/webstore/detail/fb-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc">FB Pixel Helper</a> for Facebook codes and <a href="https://chrome.google.com/webstore/detail/tag-assistant-by-google/kejbdjndbnbjgmefkgdddjlbokphdefk">Tag Assistant (by Google)</a> for Google codes.
+You have 6 slots to use. Which means six different locations with unlimited tracking codes (enough for 99% of users).
+
+= How to verify that a tracking code is properly working? =
+
+Have a look at the source code of your page (search for: Tracking Code Manager) or you can install Google Chrome Addons. We suggest <a href="https://chrome.google.com/webstore/detail/fb-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc">FB Pixel Helper</a> for Facebook codes and <a href="https://chrome.google.com/webstore/detail/tag-assistant-by-google/kejbdjndbnbjgmefkgdddjlbokphdefk">Tag Assistant (by Google)</a> for Google codes.
 
 == Screenshots ==
 
@@ -89,6 +100,14 @@ You can see in the source code of your page looking for "TRACKING CODE MANAGER" 
 6. Tracking code manager is also as a metabox in your posts/pages (you can remove by settings)
 
 == Changelog ==
+
+= 1.6.5 =
+*Release Date - 30/05/2015*
+
+* Added Conversion Tracking for WooCommerce, Easy Digital Download and WP eCommerce
+* Added Whats new page
+* Added videos for abetter explanation
+* Minor bugfixes
 
 = 1.5.5 =
 *Release Date - 18/05/2015*
