@@ -5,7 +5,7 @@ Tags: adwords remarketing,analytics conversion tracking,conversion pixel,convers
 Requires at least: 2.7
 Tested up to: 4.2.2
 
-A plugin to manage ALL your tracking code and conversion pixels, simply. Compatible with Facebook Ads, Google Adwords, WooCommerce, Easy Digital Downloads, WP eCommerce.
+A plugin to manage ALL your tracking code and conversion pixels. Compatible with Facebook Ads, Google Adwords, WooCommerce, Easy Digital Downloads, ..
 
 == Description ==
 
@@ -20,8 +20,8 @@ For every single service you use, you’ll have to put a script or a tracking pi
 Tracking Code Manager plugin allows you to gather EVERY code and snippet displaying them exactly where you want, whether in the whole site or in specific pages and posts.
 
 > <strong>TRACK CONVERSION ON YOUR E-COMMERCE PLUGIN</strong><br>
-> When it comes to track conversions on a wordpress page it’s easy… but if it’s a "dynamic thank you page" is a big problem.<br>
-> Tracking Code Manager plugin DETECT AUTOMATICALLY your e-commerce plugin (WooCommerce, Easy Digital Downloads or WP Ecommerce) and let you put the conversion pixels every time someone completes a sale on your store.<br>
+> When it comes to track conversions on a wordpress page it’s easy… but if it’s a "dynamic thank you page" is a big problem.<br><br>
+> Tracking Code Manager plugin DETECT AUTOMATICALLY your e-commerce plugin (WooCommerce, Easy Digital Downloads or WP eCommerce) and let you put the conversion pixels every time someone completes a sale on your store.<br>
 > In addition you also have the ability to track a single product at time ;)<br>
 > <a href="https://wordpress.org/plugins/tracking-code-manager/screenshots/">Check some screenshots here.</a>
 
@@ -49,7 +49,7 @@ With Tracking Code Manager you can forget about this problem also if you will ch
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 4. Put your tracking code, script or iframe in the plugin by going to the Settings =&gt; Tracking Code Manager menu
 
-You can also click on this link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/) to see a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
+You can also click on this link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/?utm_source=wordpress-org&utm_medium=plugin-page&utm_campaign=TCM) to see a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
 == Frequently Asked Questions ==
 
@@ -60,7 +60,7 @@ You can also click on this link [http://intellywp.com/tracking-code-manager/](ht
 
 = Do you have a video that show me the plugin working? =
 
-Sure! Click on the link [http://intellywp.com/tracking-code-manager/?utm_source=wordpress-org&utm_medium=plugin-page&utm_campaign=TCM ](http://intellywp.com/tracking-code-manager/) for a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
+Sure! Click on the link [http://intellywp.com/tracking-code-manager/](http://intellywp.com/tracking-code-manager/?utm_source=wordpress-org&utm_medium=plugin-page&utm_campaign=TCM) for a full explanation. This is our official webpage, you will see the plugin in action, with the possibility to buy PREMIUM version and have full support.
 
 = Will this plugin slow my website? =
 
