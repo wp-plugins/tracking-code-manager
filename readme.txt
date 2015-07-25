@@ -1,7 +1,7 @@
 === Tracking Code Manager ===
 Contributors: IntellyWP
 Donate link: http://intellywp.com/tracking-code-manager/
-Tags: adwords remarketing,analytics conversion tracking,conversion pixel,conversion tracking,conversion tracking adwords,conversion tracking pixel,conversion tracking script,Facebook Ads,facebook conversion pixel,facebook custom audience,facebook retargeting,google adwords,google analytics web tracking code,google tag manager,html snippet,html snippets,html tracking code,javascript snippet,javascript snippets,header,pay per click tracking,pixel tracking code,remarketing,retargeting,snippets,Tag Management,track conversion,track conversions,tracking code,tracking codes,tracking script,woocommerce,edd,easy digital downloads,wp ecommerce,wp e-commerce
+Tags: adwords remarketing,analytics conversion tracking,conversion pixel,conversion tracking,conversion tracking adwords,conversion tracking pixel,conversion tracking script,Facebook Ads,facebook conversion pixel,facebook custom audience,facebook retargeting,google adwords,google analytics web tracking code,google tag manager,html snippet,html snippets,html tracking code,javascript snippet,javascript snippets,header and footer,pay per click tracking,pixel tracking code,remarketing,retargeting,snippets,Tag Management,track conversion,track conversions,tracking code,tracking codes,tracking script,woocommerce,edd,easy digital downloads,wp ecommerce,wp e-commerce
 Requires at least: 2.7
 Tested up to: 4.2.2
 
