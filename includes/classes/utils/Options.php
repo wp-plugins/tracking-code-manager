@@ -125,22 +125,22 @@ class TCM_Options {
     }
 
     public function getTrackingLastSend() {
-        return $this->getOption('TrackingLastSend['.TCM_PLUGIN_NAME.']', 0);
+        return $this->getOption('TrackingLastSend['.TCM_PLUGIN_SLUG.']', 0);
     }
     public function setTrackingLastSend($value) {
-        $this->setOption('TrackingLastSend['.TCM_PLUGIN_NAME.']', $value);
+        $this->setOption('TrackingLastSend['.TCM_PLUGIN_SLUG.']', $value);
     }
     public function getPluginInstallDate() {
-        return $this->getOption('PluginInstallDate['.TCM_PLUGIN_NAME.']', 0);
+        return $this->getOption('PluginInstallDate['.TCM_PLUGIN_SLUG.']', 0);
     }
     public function setPluginInstallDate($value) {
-        $this->setOption('PluginInstallDate['.TCM_PLUGIN_NAME.']', $value);
+        $this->setOption('PluginInstallDate['.TCM_PLUGIN_SLUG.']', $value);
     }
     public function getPluginUpdateDate() {
-        return $this->getOption('PluginUpdateDate['.TCM_PLUGIN_NAME.']', 0);
+        return $this->getOption('PluginUpdateDate['.TCM_PLUGIN_SLUG.']', 0);
     }
     public function setPluginUpdateDate($value) {
-        $this->setOption('PluginUpdateDate['.TCM_PLUGIN_NAME.']', $value);
+        $this->setOption('PluginUpdateDate['.TCM_PLUGIN_SLUG.']', $value);
     }
 
     //LoggerEnable

@@ -29,8 +29,8 @@ class TCM_Ecommerce {
         global $tcm;
 
         $orderId=intval($order['purchase_id']);
-        $tcm->Logger->debug('Ecommerce: ECOMMERCE THANKYOU');
-        $tcm->Logger->debug('Ecommerce: NEW ECOMMERCE ORDERID=%s', $orderId);
+        $tcm->Log->debug('Ecommerce: ECOMMERCE THANKYOU');
+        $tcm->Log->debug('Ecommerce: NEW ECOMMERCE ORDERID=%s', $orderId);
 
         $order=new WPSC_Purchase_Log($orderId);
         $items=$order->get_cart_contents();
@@ -41,7 +41,7 @@ class TCM_Ecommerce {
                 if($k) {
                     $v=$v->name;
                     $productsIds[]=$k;
-                    $tcm->Logger->debug('Ecommerce: ITEM %s=%s IN CART', $k, $v);
+                    $tcm->Log->debug('Ecommerce: ITEM %s=%s IN CART', $k, $v);
                 }
             }
         }
@@ -56,11 +56,11 @@ class TCM_Ecommerce {
         return '';
     }
 
-    function eddThankYou($payment, $edd_receipt_args) {
+    function eddThankYou($payment, $edd_receipt_args=NULL) {
         global $tcm;
 
-        $tcm->Logger->debug('Ecommerce: EDD THANKYOU');
-        $tcm->Logger->debug('Ecommerce: NEW EDD ORDERID=%s', $payment->ID);
+        $tcm->Log->debug('Ecommerce: EDD THANKYOU');
+        $tcm->Log->debug('Ecommerce: NEW EDD ORDERID=%s', $payment->ID);
         $cart=edd_get_payment_meta_cart_details($payment->ID, TRUE);
         $productsIds=array();
         foreach ($cart as $key=>$item) {
@@ -69,7 +69,7 @@ class TCM_Ecommerce {
                 if($k) {
                     $v=$item['name'];
                     $productsIds[]=$k;
-                    $tcm->Logger->debug('Ecommerce: ITEM %s=%s IN CART', $k, $v);
+                    $tcm->Log->debug('Ecommerce: ITEM %s=%s IN CART', $k, $v);
                 }
             }
         }
@@ -84,17 +84,17 @@ class TCM_Ecommerce {
     }
     function wooCommerceThankYou($orderId) {
         global $tcm;
-        $tcm->Logger->debug('Ecommerce: WOOCOMMERCE THANKYOU');
+        $tcm->Log->debug('Ecommerce: WOOCOMMERCE THANKYOU');
 
         $order=new WC_Order($orderId);
         $items=$order->get_items();
-        $tcm->Logger->debug('Ecommerce: NEW WOOCOMMERCE ORDERID=%s', $orderId);
+        $tcm->Log->debug('Ecommerce: NEW WOOCOMMERCE ORDERID=%s', $orderId);
         $productsIds=array();
         foreach($items as $k=>$v) {
             $k=intval($v['product_id']);
             if($k>0) {
                 $v=$v['name'];
-                $tcm->Logger->debug('Ecommerce: ITEM %s=%s IN CART', $k, $v);
+                $tcm->Log->debug('Ecommerce: ITEM %s=%s IN CART', $k, $v);
                 $productsIds[]=$k;
             }
         }

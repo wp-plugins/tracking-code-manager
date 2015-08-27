@@ -70,7 +70,7 @@ function tcm_ui_whats_new() {
         <tr>
             <td>
                 <form method="get" action="<?php echo TCM_PAGE_MANAGER?>">
-                    <input type="hidden" name="page" value="<?php echo TCM_PLUGIN_NAME?>" />
+                    <input type="hidden" name="page" value="<?php echo TCM_PLUGIN_SLUG?>" />
                     <input type="submit" class="button" value="CONTINUE USING FREE VERSION" />
                 </form>
             </td>

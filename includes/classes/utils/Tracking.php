@@ -108,7 +108,7 @@ class TCM_Tracking {
             $v['code']=substr($v['code'], 0, 100);
             $data[]=$v;
         }
-        $result['iwpm_plugin_name']=TCM_PLUGIN_NAME;
+        $result['iwpm_plugin_name']=TCM_PLUGIN_SLUG;
         $result['iwpm_plugin_version']=TCM_PLUGIN_VERSION;
         $result['iwpm_plugin_data']=$data;
         $result['iwpm_plugin_install_date']=$tcm->Options->getPluginInstallDate();

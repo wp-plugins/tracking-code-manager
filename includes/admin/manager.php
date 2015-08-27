@@ -91,7 +91,7 @@ function tcm_ui_manager() {
                 <input type="submit" class="button" value="<?php $tcm->Lang->P('Button.BuyPRO')?>" />
             </form>
             <form method="get" action="" style="margin:5px; float:left;">
-                <input type="hidden" name="page" value="<?php echo TCM_PLUGIN_NAME?>" />
+                <input type="hidden" name="page" value="<?php echo TCM_PLUGIN_SLUG?>" />
                 <input type="hidden" name="tab" value="<?php echo TCM_TAB_EDITOR?>" />
                 <input type="submit" class="button-primary" value="<?php $tcm->Lang->P('Button.Add')?>" />
             </form>

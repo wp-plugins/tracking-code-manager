@@ -10,7 +10,7 @@ function tcm_head(){
     $tcm->Options->setPostShown(NULL);
     if($post && isset($post->ID) && (is_page($post->ID) || is_single($post->ID))) {
         $tcm->Options->setPostShown($post);
-        $tcm->Logger->info('POST ID=%s IS SHOWN', $post->ID);
+        $tcm->Log->info('POST ID=%s IS SHOWN', $post->ID);
     }
 
     //future development

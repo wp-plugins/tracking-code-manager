@@ -24,6 +24,12 @@ class TCM_Utils {
         return (is_multisite() || current_user_can('manage_options'));
         */
     }
+    function isPluginPage() {
+        global $tcm;
+        $page=$tcm->Utils->qs('page');
+        $result=(stripos($page, TCM_PLUGIN_SLUG)!==FALSE);
+        return $result;
+    }
 
     //verifica se il parametro needle è un elemento dell'array haystack
     //se il parametro needle è a sua volta un array verifica che almeno un elemento
@@ -174,12 +180,53 @@ class TCM_Utils {
         return $result;
     }
 
-    //send remote request to our server to store tracking and feedback
+    function remoteGet($uri, $options) {
+        $result=FALSE;
+        $uri=add_query_arg($options, $uri);
+        //$uri=str_replace('https://', 'http://', $uri);
+
+        $args=array('timeout' => 15, 'sslverify' => false);
+        $response=wp_remote_get($uri, $args);
+        if (!is_wp_error($response)) {
+            // decode the license data
+            $result=wp_remote_retrieve_body($response);
+            if($result!==FALSE && $result!='') {
+                $result=json_decode($result);
+            } else {
+                $result=FALSE;
+            }
+        }
+        if($result===FALSE) {
+            $result=file_get_contents($uri);
+            if($result!==FALSE && $result!='') {
+                $result=json_decode($result);
+            } else {
+                $result=FALSE;
+            }
+        }
+        /*if(TRUE || $result===FALSE) {
+            $ch=curl_init();
+            curl_setopt($ch, CURLOPT_URL, $uri);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            $result=curl_exec($ch);
+            curl_close($ch);
+            if($result!==FALSE && $result!='') {
+                $result=json_decode($result);
+            } else {
+                $result=FALSE;
+            }
+        }*/
+        if(!$result) {
+            $result=FALSE;
+        }
+        return $result;
+    }
     function remotePost($action, $data = '') {
         global $tcm;
 
         $data['secret'] = 'WYSIWYG';
-        $response = wp_remote_post(TCM_INTELLYWP_RECEIVER . '?iwpm_action=' . $action, array(
+        $response = wp_remote_post(TCM_INTELLYWP_ENDPOINT . '?iwpm_action=' . $action, array(
             'method' => 'POST'
             , 'timeout' => 20
             , 'redirection' => 5
@@ -192,10 +239,10 @@ class TCM_Utils {
         if (is_wp_error($response) || wp_remote_retrieve_response_code($response) != 200
             || !isset($data['success']) || !$data['success']
         ) {
-            $tcm->Logger->error('ERRORS SENDING REMOTE-POST ACTION=%s DUE TO REASON=%s', $action, $response);
+            $tcm->Log->error('ERRORS SENDING REMOTE-POST ACTION=%s DUE TO REASON=%s', $action, $response);
             $data = FALSE;
         } else {
-            $tcm->Logger->debug('SUCCESSFULLY SENT REMOTE-POST ACTION=%s RESPONSE=%s', $action, $data);
+            $tcm->Log->debug('SUCCESSFULLY SENT REMOTE-POST ACTION=%s RESPONSE=%s', $action, $data);
         }
         return $data;
     }

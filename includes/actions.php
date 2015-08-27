@@ -28,10 +28,10 @@ function tcm_do_action() {
         $args=array_merge($_GET, $_POST, $_COOKIE, $_SERVER);
         $name='tcm_'.$tcm->Utils->qs('tcm_action');
         if(has_action($name)) {
-            $tcm->Logger->debug('EXECUTING ACTION=%s', $name);
+            $tcm->Log->debug('EXECUTING ACTION=%s', $name);
             do_action($name, $args);
         } elseif(function_exists($name)) {
-            $tcm->Logger->debug('EXECUTING FUNCTION=%s DATA=%s', $name, $args);
+            $tcm->Log->debug('EXECUTING FUNCTION=%s DATA=%s', $name, $args);
             call_user_func($name, $args);
         } elseif(strpos($tcm->Utils->qs('tcm_action'), '_')!==FALSE) {
             $pos=strpos($tcm->Utils->qs('tcm_action'), '_');
@@ -55,15 +55,15 @@ function tcm_do_action() {
             }
 
             if(!$class) {
-                $tcm->Logger->fatal('NO CLASS FOR=%s IN ACTION=%s', $what, $tcm->Utils->qs('tcm_action'));
+                $tcm->Log->fatal('NO CLASS FOR=%s IN ACTION=%s', $what, $tcm->Utils->qs('tcm_action'));
             } elseif(!method_exists ($class, $function)) {
-                $tcm->Logger->fatal('NO METHOD FOR=%s IN CLASS=%s IN ACTION=%s', $function, $what, $tcm->Utils->qs('tcm_action'));
+                $tcm->Log->fatal('NO METHOD FOR=%s IN CLASS=%s IN ACTION=%s', $function, $what, $tcm->Utils->qs('tcm_action'));
             } else {
-                $tcm->Logger->debug('METHOD=%s OF CLASS=%s', $function, $what);
+                $tcm->Log->debug('METHOD=%s OF CLASS=%s', $function, $what);
                 call_user_func(array($class, $function), $args);
             }
         } else {
-            $tcm->Logger->fatal('NO FUNCTION FOR==%s', $tcm->Utils->qs('tcm_action'));
+            $tcm->Log->fatal('NO FUNCTION FOR==%s', $tcm->Utils->qs('tcm_action'));
         }
 	}
 }

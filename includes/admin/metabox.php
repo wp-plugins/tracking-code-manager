@@ -169,6 +169,6 @@ function tcm_save_meta_box_data($postId) {
         $snippet['include'.$keyActive]=1;
         $snippet['include'.$keyArray]=array($postId);
         $snippet=$tcm->Manager->put('', $snippet);
-        $tcm->Logger->debug("NEW SNIPPET REGISTRED=%s", $snippet);
+        $tcm->Log->debug("NEW SNIPPET REGISTRED=%s", $snippet);
     }
 }

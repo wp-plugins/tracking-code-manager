@@ -186,7 +186,7 @@ class TCM_Manager {
         if($postId>0) {
             $what=$prefix.'PostsOfType_'.$postType;
             if(!$include && isset($snippet[$what.'_Active']) && isset($snippet[$what]) && $snippet[$what.'_Active'] && $tcm->Utils->inArray($postId, $snippet[$what])) {
-                $tcm->Logger->debug('MATCH=%s SNIPPET=%s[%s] DUE TO POST=%s OF TYPE=%s IN [%s]'
+                $tcm->Log->debug('MATCH=%s SNIPPET=%s[%s] DUE TO POST=%s OF TYPE=%s IN [%s]'
                     , $prefix, $snippet['id'], $snippet['name'], $postId, $postType, $snippet[$what]);
                 $include=TRUE;
             }
@@ -317,13 +317,13 @@ class TCM_Manager {
                     continue;
                 }
                 if ($tcm->Options->hasSnippetWritten($v)) {
-                    $tcm->Logger->debug('SKIPPED SNIPPET=%s[%s] DUE TO ALREADY WRITTEN', $v['id'], $v['name']);
+                    $tcm->Log->debug('SKIPPED SNIPPET=%s[%s] DUE TO ALREADY WRITTEN', $v['id'], $v['name']);
                     continue;
                 }
 
                 $match = FALSE;
                 if (!$match && ($v['trackPage']==TCM_TRACK_PAGE_ALL || $v['includeEverywhereActive'])) {
-                    $tcm->Logger->debug('INCLUDED SNIPPET=%s[%s] DUE TO EVERYWHERE', $v['id'], $v['name']);
+                    $tcm->Log->debug('INCLUDED SNIPPET=%s[%s] DUE TO EVERYWHERE', $v['id'], $v['name']);
                     $match = TRUE;
                 }
                 if (!$match && $postId > 0 && $this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'include', $v)) {
@@ -332,7 +332,7 @@ class TCM_Manager {
 
                 if ($match && $postId > 0) {
                     if ($this->matchSnippet($postId, $postType, $categoriesIds, $tagsIds, 'except', $v)) {
-                        $tcm->Logger->debug('FOUND AT LEAST ON EXCEPT TO EXCLUDE SNIPPET=%s [%s]', $v['id'], $v['name']);
+                        $tcm->Log->debug('FOUND AT LEAST ON EXCEPT TO EXCLUDE SNIPPET=%s [%s]', $v['id'], $v['name']);
                         $match = FALSE;
                     }
                 }
@@ -352,7 +352,7 @@ class TCM_Manager {
                 if(isset($v[$k])) {
                     $array[]=$v[$k];
                 } else {
-                    $tcm->Logger->error('SNIPPET=%s [%s] WITHOUT FIELD=%s', $v['id'], $v['name'], $k);
+                    $tcm->Log->error('SNIPPET=%s [%s] WITHOUT FIELD=%s', $v['id'], $v['name'], $k);
                 }
             }
             $result=$array;

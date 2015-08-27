@@ -38,10 +38,16 @@ class TCM_Logger {
         $this->write('[ERROR]', $message, $v1, $v2, $v3, $v4, $v5, $v6);
     }
     private function dump($v) {
+        if(is_array($v) && count($v)==0) {
+            $v='[]';
+        }
         if($v!=NULL) {
             if(is_array($v) || is_object($v)) {
                 $v=print_r($v, TRUE);
             }
+        }
+        if(is_bool($v)) {
+            $v=($v ? 'TRUE' : 'FALSE');
         }
         return $v;
     }
